@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/delete_item_contextual_menu"
+        android:icon="@drawable/ic_baseline_delete_24"
+        android:title="delete"
+        android:contentDescription="content_description_delete"
+        app:showAsAction="ifRoom" />
+
+    <group android:id="@+id/single_selection_contextual_menu_group">
+        <item
+            android:id="@+id/edit_item_contextual_menu"
+            android:contentDescription="content_description_edit"
+            android:icon="@drawable/ic_baseline_edit_24"
+            android:title="edit"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/main_item_contextual_menu"
+            android:contentDescription="content_description_set_main"
+            android:icon="@drawable/ic_baseline_star_border_24"
+            android:title="main"
+            app:showAsAction="ifRoom" />
+    </group>
+
+</menu>

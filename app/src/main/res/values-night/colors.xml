@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="vehicles_list_item">#222121</color>
+    <color name="vehicles_list_item_selected">#CDC68400</color>
+</resources>

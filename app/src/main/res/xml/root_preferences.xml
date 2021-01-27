@@ -1,0 +1,52 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/ui_header">
+        <ListPreference
+            android:defaultValue="@string/theme_def_value"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
+            android:key="theme"
+            android:title="@string/theme_title"
+            android:icon="@drawable/ic_baseline_brightness_4_24"
+            app:useSimpleSummaryProvider="true"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/temperature_header">
+        <ListPreference
+            android:defaultValue="@string/temperature_unit_def_value"
+            android:entries="@array/temperature_entries"
+            android:entryValues="@array/temperature_values"
+            android:key="temperature_unit"
+            android:title="@string/temperature_unit"
+            app:useSimpleSummaryProvider="true" />
+        <SeekBarPreference
+            android:id="@+id/tempSeekBar"
+            android:defaultValue="65"
+            android:max="200"
+            android:key="temperature_upper_limit"
+            android:title="@string/temperature_upper_limit"
+            app:showSeekBarValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/pressure_header">
+        <ListPreference
+            android:defaultValue="@string/pressure_unit_def_value"
+            android:entries="@array/pressure_entries"
+            android:entryValues="@array/pressure_values"
+            android:key="pressure_unit"
+            android:title="@string/pressure_unit"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <Preference
+        android:key="pressure_limits"
+        android:title="@string/pressure_limits"
+        android:icon="@drawable/ic_baseline_tune_24"/>
+
+    <Preference
+        android:key="about"
+        android:title="@string/about_title"
+        android:icon="@drawable/ic_baseline_info_24" />
+
+</PreferenceScreen>

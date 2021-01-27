@@ -1,0 +1,51 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="theme_entries">
+        <item>@string/theme_entry_system</item>
+        <item>@string/theme_entry_light</item>
+        <item>@string/theme_entry_dark</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>MODE_NIGHT_FOLLOW_SYSTEM</item>
+        <item>MODE_NIGHT_NO</item>
+        <item>MODE_NIGHT_YES</item>
+    </string-array>
+
+    <string-array name="temperature_entries">
+        <item>ºC</item>
+        <item>ºF</item>
+    </string-array>
+
+    <string-array name="temperature_values">
+        <item>celsius</item>
+        <item>fahrenheit</item>
+    </string-array>
+
+    <string-array name="pressure_entries">
+        <item>BAR</item>
+        <item>KPA</item>
+        <item>PSI</item>
+    </string-array>
+
+    <string-array name="pressure_values">
+        <item>BAR</item>
+        <item>KPA</item>
+        <item>PSI</item>
+    </string-array>
+
+    <string-array name="initial_pressure_values_bar">
+        <item>2.0</item>
+        <item>3.0</item>
+    </string-array>
+
+    <string-array name="initial_pressure_values_kpa">
+        <item>204.0</item>
+        <item>306.0</item>
+    </string-array>
+
+    <string-array name="initial_pressure_values_psi">
+        <item>29.0</item>
+        <item>43.5</item>
+    </string-array>
+</resources>

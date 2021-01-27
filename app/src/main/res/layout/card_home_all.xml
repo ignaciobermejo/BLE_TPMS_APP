@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/VehicleCard.Medium"
+    app:cardPreventCornerOverlap="false">
+
+    <LinearLayout
+        android:id="@+id/cardInnerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp"
+        android:orientation="vertical"
+        android:weightSum="11">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/iconsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@drawable/home_background"
+            android:gravity="center"
+            android:padding="4dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/left_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".25" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/middle_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".50" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/right_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".75" />
+
+
+            <ImageView
+                android:id="@+id/signalIcon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toStartOf="@+id/left_guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_wifi_24" />
+
+            <ImageView
+                android:id="@+id/pressureIcon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toStartOf="@+id/middle_guideline"
+                app:layout_constraintStart_toStartOf="@+id/left_guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_tpms_warning_icon" />
+
+            <ImageView
+                android:id="@+id/temperatureIcon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toStartOf="@+id/right_guideline"
+                app:layout_constraintStart_toStartOf="@+id/middle_guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_temperature_alert" />
+
+            <ImageView
+                android:id="@+id/batteryIcon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/right_guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_low_battery" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/amber_600" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/unit_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".75" />
+
+            <TextView
+                android:id="@+id/pressureTextView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="bottom|center_horizontal"
+                android:maxLines="1"
+                android:text="306.0"
+                app:layout_constraintBottom_toTopOf="@id/unit_guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/pressureUnitTextView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center|top"
+                android:maxLines="1"
+                android:text="BAR"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/unit_guideline" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/tempTextView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="24ºC" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
+
+

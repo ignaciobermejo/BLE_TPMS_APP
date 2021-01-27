@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BLE TPMS</string>
+    <string name="title_home">Home</string>
+    <string name="title_pair">Pair</string>
+    <string name="title_vehicles">My vehicles</string>
+</resources>
