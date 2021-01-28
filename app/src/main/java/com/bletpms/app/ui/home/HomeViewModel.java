@@ -12,6 +12,8 @@ import com.bletpms.app.bluetooth.BluetoothService;
 import com.bletpms.app.database.Vehicle;
 import com.bletpms.app.database.VehicleRepository;
 
+import java.util.ArrayList;
+
 
 public class HomeViewModel extends AndroidViewModel{
 
@@ -19,40 +21,25 @@ public class HomeViewModel extends AndroidViewModel{
     private LiveData<Vehicle> mMainVehicle;
     private LiveData<String[]> mDevices;
 
+    private ArrayList<VehicleCard> lastCards;
+
     public HomeViewModel(@NonNull Application application) {
         super(application);
         mRepository = new VehicleRepository(application);
         mMainVehicle = mRepository.getMainVehicle();
         mDevices = mRepository.getDevices();
+        lastCards = new ArrayList<>();
     }
 
     LiveData<Vehicle> getMainVehicle(){return mMainVehicle;}
 
     LiveData<String[]> getDevices(){return mDevices;}
+
+    public ArrayList<VehicleCard> getLastCards() {
+        return lastCards;
+    }
+
+    public void setLastCards(ArrayList<VehicleCard> lastCards) {
+        this.lastCards = lastCards;
+    }
 }
-/*
-public class HomeViewModel extends ViewModel {
-
-    private final MutableLiveData<String> mText;
-    private final MutableLiveData<String> buttonText;
-
-    public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("");
-        buttonText = new MutableLiveData<>();
-    }
-
-    public LiveData<String> getHomeText() {
-        return mText;
-    }
-    public void setHomeText(String text) {
-        mText.setValue(mText.getValue().concat( "\n" + text));
-    }
-
-    public LiveData<String> getHomeButtonText() {
-        return buttonText;
-    }
-    public void setHomeButtonText(String text) {
-        buttonText.setValue(text);
-    }
-}*/

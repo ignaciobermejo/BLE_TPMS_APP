@@ -31,9 +31,9 @@ public class PressureLimitsActivity extends AppCompatActivity {
 
     private static final double minBarUpper = 2.8D;
 
-    private static final double defaultLowerBar = 2.0D;
+    public static final double defaultLowerBar = 2.0D;
 
-    private static final double defaultUpperBar = 3.0D;
+    public static final double defaultUpperBar = 3.0D;
 
     private static final int maxKpaLower = 240;
 
@@ -146,8 +146,8 @@ public class PressureLimitsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            preferences.edit().putFloat("pressure_lower_value", slider.getValues().get(1)).apply();
-            preferences.edit().putFloat("pressure_upper_value", slider.getValues().get(0)).apply();
+            preferences.edit().putFloat("pressure_lower_value", slider.getValues().get(0)).apply();
+            preferences.edit().putFloat("pressure_upper_value", slider.getValues().get(1)).apply();
             this.finish();
             return true;
         }
@@ -156,8 +156,8 @@ public class PressureLimitsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        preferences.edit().putFloat("pressure_lower_value", slider.getValues().get(1)).apply();
-        preferences.edit().putFloat("pressure_upper_value", slider.getValues().get(0)).apply();
+        preferences.edit().putFloat("pressure_lower_value", slider.getValues().get(0)).apply();
+        preferences.edit().putFloat("pressure_upper_value", slider.getValues().get(1)).apply();
         super.onBackPressed();
     }
 }

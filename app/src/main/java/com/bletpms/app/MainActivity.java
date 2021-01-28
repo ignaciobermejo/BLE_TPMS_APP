@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.navigation_settings) {
+            if (bluetoothService.isScanning())
+                bluetoothService.stopBleScan();
             Intent intent = new Intent();
             intent.setClassName(this, "com.bletpms.app.ui.settings.SettingsActivity");
             startActivity(intent);
@@ -110,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (bluetoothService.getBluetoothAdapter() == null || !bluetoothService.getBluetoothAdapter().isEnabled()) {
             bluetoothService.promptEnableBluetooth();
-        } else {
+        } /*else {
             if (!bluetoothService.isScanning()) bluetoothService.startBleScan();
-        }
+        }*/
 
     }
 

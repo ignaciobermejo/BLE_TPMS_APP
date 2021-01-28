@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.ObservableMap;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -23,6 +24,7 @@ import com.bletpms.app.R;
 import com.bletpms.app.bluetooth.BluetoothService;
 import com.bletpms.app.bluetooth.DeviceBeacon;
 import com.bletpms.app.database.Vehicle;
+import com.bletpms.app.ui.settings.PressureLimitsActivity;
 import com.bletpms.app.utils.BitmapFromAssetsProvider;
 import com.bletpms.app.utils.VehicleTypes;
 import com.google.android.material.card.MaterialCardView;
@@ -30,7 +32,7 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment{
     private static final String TAG = "HomeFragment";
 
     private HomeViewModel homeViewModel;
@@ -60,7 +62,6 @@ public class HomeFragment extends Fragment {
                     attachDevicesToCards(vehicle.getDevices(),vehicleCards);
                 }
                 mainVehicle = vehicle;
-
             }
         });
 
@@ -75,6 +76,21 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!bluetoothService.isScanning()) bluetoothService.startBleScan();
+
+        if (layoutLoaded) updateCardsData();
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         bluetoothService.getBeacons().addOnMapChangedCallback(new ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>() {
@@ -84,32 +100,25 @@ public class HomeFragment extends Fragment {
 
                 for (VehicleCard card: vehicleCards) {
                     if (card.isBinded()){
-                        String currentPressureUnit = preferences.getString("pressure_unit", getString(R.string.pressure_unit_def_value));
                         card.updateData(sender.get(card.getDeviceID()));
                     }
                 }
-                /*for (MaterialCardView card:cards) {
-                    int wheelNumber = cards.indexOf(card)+1;
-                    TextView tempTextView = card.findViewById(R.id.tempTextView);
-                    TextView pressureTextView = card.findViewById(R.id.pressureTextView);
-                    String deviceID = mainVehicle.getDevice(wheelNumber);
-                    if (deviceID != null && deviceID.matches(key)){
-                        //Log.i("VEHICLE DEVICE", vehicle.getDevice(wheelNumber));
-                        tempTextView.setText(String.valueOf(sender.get(key).getTemperatureCelsius()));
-                        pressureTextView.setText(String.valueOf(sender.get(key).getPressureBAR()));
-                        //card.setBackgroundColor(ColorUtils.setAlphaComponent(getResources().getColor(R.color.amber_600),150));
-                    }else {
-                        tempTextView.setText("--");
-                        pressureTextView.setText("--");
-                        //card.setBackgroundColor(getResources().getColor(R.color.white));
-                    }
-                }*/
             }
         });
     }
 
 
-
+    private void updateCardsData(){
+        Log.i(TAG, "Cards data updated");
+        for (VehicleCard card: vehicleCards) {
+            card.getPreferences();
+            card.updateUnits();
+            if (card.isBinded()){
+                if (card.getLastBeacon() != null)
+                    card.updateData(card.getLastBeacon());
+            }
+        }
+    }
     private void attachDevicesToCards(String[] devices, ArrayList<VehicleCard> cards) {
         for (int i = 0; i < devices.length; i++ ){
             cards.get(i).setDeviceID(devices[i]);
@@ -156,4 +165,27 @@ public class HomeFragment extends Fragment {
     private boolean isCardsSizeLarge(String vehicleType){
         return vehicleType.matches("2|1-2|2-1");
     }
+
+/*    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key != null && sharedPreferences != null) {
+            if (!key.matches("theme")) {
+                Log.i(TAG, "Preferences changed!");
+                String temperatureUnitPref = preferences.getString("temperature_unit", getString(R.string.temperature_unit_def_value));
+                String pressureUnitPref = preferences.getString("pressure_unit", getString(R.string.pressure_unit_def_value));;
+                float temperatureUpperLimitPref = preferences.getInt("temperature_upper_limit", 65);
+                float pressureLowerLimitPref = preferences.getFloat("pressure_lower_value", (float) PressureLimitsActivity.defaultLowerBar);
+                float pressureUpperLimitPref = preferences.getFloat("pressure_upper_value", (float) PressureLimitsActivity.defaultUpperBar);
+                for (VehicleCard card: vehicleCards) {
+                    card.updatePreferences(temperatureUnitPref, pressureUnitPref, temperatureUpperLimitPref, pressureLowerLimitPref, pressureUpperLimitPref);
+                    if (key.matches("temperature_unit|pressure_unit"))
+                        card.updateUnits();
+                    if (card.isBinded()){
+                        if (card.getLastBeacon() != null)
+                            card.updateData(card.getLastBeacon());
+                    }
+                }
+            }
+        }
+    }*/
 }

@@ -10,6 +10,11 @@
     android:layout_marginBottom="4dp"
     android:weightSum="11">
 
+<!--    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"/>-->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/iconsLayout"
         android:layout_width="match_parent"
@@ -80,73 +85,145 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dataLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6">
+        android:layout_weight="9">
 
-        <!--<View
-            android:id="@+id/dividerUd"
+        <!--<FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintTop_toTopOf="parent" />
-        <View
-            android:id="@+id/dividerDown"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toBottomOf="parent" />-->
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/unit_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".75"/>
-
-        <TextView
-            android:id="@+id/pressureTextView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:autoSizeMinTextSize="10sp"
-            android:autoSizeTextType="uniform"
-            android:gravity="bottom|center_horizontal"
-            android:maxLines="1"
-            android:text="--"
-            style="@style/VehicleCard.TextAppearance"
-            app:layout_constraintBottom_toTopOf="@id/unit_guideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/pressureUnitTextView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:autoSizeMinTextSize="10sp"
-            android:autoSizeTextType="uniform"
-            android:gravity="center_horizontal|top"
-            android:maxLines="1"
-            android:text="BAR"
-            style="@style/VehicleCard.TextAppearance"
+            android:layout_height="match_parent"
+            android:layout_margin="50dp"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/unit_guideline" />
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        </FrameLayout>-->
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/dataViewsGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="pressureDataLayout, temperatureDataLayout"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/data_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".65" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pressureDataLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/data_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/unit_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".75" />
+
+            <TextView
+                android:id="@+id/pressureTextView"
+                style="@style/VehicleCard.TextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="bottom|center_horizontal"
+                android:maxLines="1"
+                android:text="--"
+                app:layout_constraintBottom_toTopOf="@id/unit_guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/pressureUnitTextView"
+                style="@style/VehicleCard.TextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center_horizontal|top"
+                android:maxLines="1"
+                android:text="BAR"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/unit_guideline" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/temperatureDataLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/data_guideline">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/middle_guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".50" />
+
+            <TextView
+                android:id="@+id/tempTextView"
+                style="@style/VehicleCard.TextAppearance"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center_vertical|end"
+                android:maxLines="1"
+                android:text="--"
+                app:layout_constraintEnd_toStartOf="@+id/middle_guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tempUnitTextView"
+                style="@style/VehicleCard.TextAppearance"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="start|center_vertical"
+                android:maxLines="1"
+                android:text="ºC"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/middle_guideline2"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:elevation="2dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tempTextView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:layout_weight="3"
-        style="@style/VehicleCard.TextAppearance"
-        android:text="--ºC"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="10sp"
-        android:maxLines="1"/>
 
 </LinearLayout>
 
