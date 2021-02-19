@@ -18,7 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BLETPMS">
-        <activity android:name=".ui.settings.PressureLimitsActivity"></activity>
+        <activity
+            android:name=".ui.settings.PressureLimitsActivity"
+            android:parentActivityName=".ui.settings.SettingsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/title_settings"

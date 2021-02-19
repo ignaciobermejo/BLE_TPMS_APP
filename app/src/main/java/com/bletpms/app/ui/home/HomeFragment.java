@@ -96,11 +96,16 @@ public class HomeFragment extends Fragment{
         bluetoothService.getBeacons().addOnMapChangedCallback(new ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>() {
             @Override
             public void onMapChanged(ObservableMap<String, DeviceBeacon> sender, String key) {
-                sender.forEach((s, deviceBeacon) -> Log.i(TAG,"Device name: " + s + " [" + deviceBeacon.toString()+ "]"));
+                for (Map.Entry<String, DeviceBeacon> entry : sender.entrySet()) {
+                    String s = entry.getKey();
+                    DeviceBeacon deviceBeacon = entry.getValue();
+                    Log.i(TAG, "Device name: " + s + " [" + deviceBeacon.toString() + "]");
+                }
 
                 for (VehicleCard card: vehicleCards) {
                     if (card.isBinded()){
-                        card.updateData(sender.get(card.getDeviceID()));
+                        if (card.getDeviceID().matches(sender.get(key).getName()))
+                            card.updateData(sender.get(card.getDeviceID()));
                     }
                 }
             }
