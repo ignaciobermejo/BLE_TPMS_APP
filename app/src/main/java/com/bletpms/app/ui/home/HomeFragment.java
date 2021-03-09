@@ -1,5 +1,10 @@
 package com.bletpms.app.ui.home;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +51,21 @@ public class HomeFragment extends Fragment{
 
     private SharedPreferences preferences;
 
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,
+                        BluetoothAdapter.ERROR);
+                if (state == BluetoothAdapter.STATE_TURNING_OFF) {
+                    bluetoothService.promptEnableBluetooth();
+                }
+            }
+        }
+    };
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -76,6 +96,19 @@ public class HomeFragment extends Fragment{
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        getActivity().registerReceiver(mReceiver, filter);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getActivity().unregisterReceiver(mReceiver);
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
@@ -85,7 +118,13 @@ public class HomeFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        if (!bluetoothService.isScanning()) bluetoothService.startBleScan();
+
+        if (bluetoothService.getBluetoothAdapter() == null || !bluetoothService.getBluetoothAdapter().isEnabled()) {
+            bluetoothService.promptEnableBluetooth();
+        } else {
+            if (!bluetoothService.isScanning()) bluetoothService.startBleScan();
+        }
+        //if (!bluetoothService.isScanning()) bluetoothService.startBleScan();
 
         if (layoutLoaded) updateCardsData();
     }
@@ -96,6 +135,7 @@ public class HomeFragment extends Fragment{
         bluetoothService.getBeacons().addOnMapChangedCallback(new ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>() {
             @Override
             public void onMapChanged(ObservableMap<String, DeviceBeacon> sender, String key) {
+                //Debug info
                 for (Map.Entry<String, DeviceBeacon> entry : sender.entrySet()) {
                     String s = entry.getKey();
                     DeviceBeacon deviceBeacon = entry.getValue();

@@ -90,19 +90,6 @@
         android:layout_height="0dp"
         android:layout_weight="9">
 
-        <!--<FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="50dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-        </FrameLayout>-->
-
         <androidx.constraintlayout.widget.Group
             android:id="@+id/dataViewsGroup"
             android:layout_width="wrap_content"

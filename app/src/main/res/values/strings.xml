@@ -3,13 +3,27 @@
     <string name="title_home">Inicio</string>
     <string name="title_pair">Emparejar</string>
     <string name="title_vehicles">Mis vehículos</string>
-    <string name="title_settings">Settings</string>
+    <string name="title_settings">Ajustes</string>
     <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Cancelar</string>
 
     <!-- Location Dialog-->
-    <string name="location_message">Starting from Android M (6.0), the system requires apps to be granted location access in order to scan for BLE devices.</string>
-    <string name="location_title">Location permission required</string>
+    <string name="location_message">"A partir de Android M (6.0), el sistema requiere que las aplicaciones tengan acceso a la ubicación para buscar dispositivos BLE. "</string>
+    <string name="location_title">Permiso de localización necesario</string>
+
+    <!-- Pair -->
+    <string name="pair_bind">Emparejar</string>
+    <string name="pair_unbind">Desemparejar</string>
+    <string name="pair_unbind_title">Desemparejar dispositivo</string>
+    <string name="pair_unbind_message">¿Está seguro?</string>
+    <string name="pair_auto">Automático</string>
+    <string name="pair_auto_text">Conecte el dispositivo al neumático y espere 10 segundos. Si el dispositivo no se encuentra, desconecte y repita el proceso.</string>
+    <string name="pair_auto_search">Buscar</string>
+    <string name="pair_auto_searching">Buscando…</string>
+    <string name="pair_auto_search_not_found">No se han encontrado dispositivos. Por favor, repita el proceso.</string>
+    <string name="pair_manual">Manual</string>
+    <string name="pair_manual_save">Guardar</string>
+    <string name="pair_manual_hint">Identificador del dispositivo</string>
 
     <!-- Preference Titles -->
     <string name="temperature_header">Temperatura</string>
@@ -18,13 +32,13 @@
 
     <!-- Temperature Preferences -->
     <string name="temperature_unit">Unidad</string>
-    <string name="temperature_unit_def_value">celsius</string>
+    <string name="temperature_unit_def_value" translatable="false">celsius</string>
     <string name="temperature_upper_limit">Límite <b>superior</b> de advertencia</string>
     <string name="temperature_lower_limit">Límite <b>inferior</b> de advertencia</string>
 
     <!-- Pressure Preferences -->
     <string name="pressure_unit">Unidad</string>
-    <string name="pressure_unit_def_value">BAR</string>
+    <string name="pressure_unit_def_value" translatable="false">BAR</string>
     <string name="pressure_limits">Límites de advertencia</string>
     <string name="pressure_limits_activity">Seleccione los límites de advertencia para la presión</string>
 
@@ -33,10 +47,15 @@
     <string name="theme_entry_system">Usar ajustes del sistema</string>
     <string name="theme_entry_light">Claro</string>
     <string name="theme_entry_dark">Oscuro</string>
-    <string name="theme_def_value">MODE_NIGHT_FOLLOW_SYSTEM</string>
+    <string name="theme_def_value" translatable="false">MODE_NIGHT_FOLLOW_SYSTEM</string>
+
+    <!-- Reset Preferences -->
+    <string name="reset_settings">Restablecer ajustes</string>
+    <string name="reset_settings_summary">Restablece todos los ajustes a los valores predeterminados</string>
+    <string name="reset_settings_dialog">¿Restablecer a los valores predeterminados?</string>
 
     <!-- About Preferences -->
     <string name="about_title">Acerca de</string>
-    <string name="about_message">Ignacio Bermejo Álvarez - 2021. Escuela Ingeniería Informática - Universidad de Oviedo.</string>
-    <string name="about_link"><a href="https://github.com/ignaciobermejo/TPMS-app">https://github.com/ignaciobermejo/TPMS-app</a></string>
+    <string name="about_message" translatable="false">Ignacio Bermejo Álvarez - 2021. Escuela Ingeniería Informática - Universidad de Oviedo.</string>
+    <string name="about_link" translatable="false"><a href="https://github.com/ignaciobermejo/TPMS-app">https://github.com/ignaciobermejo/TPMS-app</a></string>
 </resources>

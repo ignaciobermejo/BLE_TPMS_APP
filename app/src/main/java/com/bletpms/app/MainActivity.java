@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        bluetoothService = new BluetoothService(this, this);
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         final String[] darkModeValues = getResources().getStringArray(R.array.theme_values);
@@ -77,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        bluetoothService = new BluetoothService(this, this);
 
     }
 
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
 
@@ -112,13 +113,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (bluetoothService.getBluetoothAdapter() == null || !bluetoothService.getBluetoothAdapter().isEnabled()) {
             bluetoothService.promptEnableBluetooth();
-        } /*else {
+        } else {
             if (!bluetoothService.isScanning()) bluetoothService.startBleScan();
-        }*/
+        }
 
     }
 
-/*    @Override
+    @Override
     protected void onPause() {
         super.onPause();
         bluetoothService.stopBleScan();

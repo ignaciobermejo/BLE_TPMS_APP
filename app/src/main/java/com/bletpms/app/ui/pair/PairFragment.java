@@ -17,7 +17,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bletpms.app.MainActivity;
 import com.bletpms.app.R;
+import com.bletpms.app.bluetooth.BluetoothService;
 import com.bletpms.app.database.Vehicle;
 import com.bletpms.app.utils.BitmapFromAssetsProvider;
 import com.bletpms.app.utils.VehicleTypes;
@@ -34,11 +36,15 @@ public class PairFragment extends Fragment {
 
     private boolean layoutLoaded = false;
 
+    private BluetoothService bluetoothService;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         pairViewModel =
                 new ViewModelProvider(this).get(PairViewModel.class);
         root = inflater.inflate(R.layout.fragment_pair,container, false);
+
+        bluetoothService = ((MainActivity)requireActivity()).getBluetoothService();
 
         pairViewModel.getMainVehicle().observe(getViewLifecycleOwner(), new Observer<Vehicle>() {
             @Override
@@ -55,7 +61,7 @@ public class PairFragment extends Fragment {
                         textView.setText(deviceID);
                         //card.setBackgroundColor(ColorUtils.setAlphaComponent(getResources().getColor(R.color.amber_600),150));
                     }else {
-                        textView.setText("Bind");
+                        textView.setText(R.string.pair_bind);
                         //card.setBackgroundColor(getResources().getColor(R.color.white));
                     }
                 }
@@ -96,7 +102,7 @@ public class PairFragment extends Fragment {
             card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogFragment pairDeviceFragment = new PairDeviceDialog(vehicle, pairViewModel, cards.indexOf(card)+1);
+                    DialogFragment pairDeviceFragment = new PairDeviceDialog(vehicle, pairViewModel, cards.indexOf(card)+1, card, bluetoothService);
                     pairDeviceFragment.show(((AppCompatActivity)getContext()).getSupportFragmentManager(), "Pair device");
                 }
             });

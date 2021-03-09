@@ -37,12 +37,18 @@
             android:key="pressure_unit"
             android:title="@string/pressure_unit"
             app:useSimpleSummaryProvider="true" />
+        <Preference
+            android:key="pressure_limits"
+            android:title="@string/pressure_limits"
+            android:icon="@drawable/ic_baseline_tune_24"/>
     </PreferenceCategory>
 
     <Preference
-        android:key="pressure_limits"
-        android:title="@string/pressure_limits"
-        android:icon="@drawable/ic_baseline_tune_24"/>
+        android:key="reset_settings"
+        android:title="@string/reset_settings"
+        android:summary="@string/reset_settings_summary"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"/>
 
     <Preference
         android:key="about"

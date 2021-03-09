@@ -12,21 +12,29 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.bletpms.app.R;
+import com.bletpms.app.bluetooth.BluetoothService;
 import com.bletpms.app.database.Vehicle;
+import com.google.android.material.card.MaterialCardView;
 
 public class PairDeviceDialog extends DialogFragment {
 
     private PairViewModel mPairViewModel;
     private Vehicle mainVehicle;
     private int selectedWheel;
+    private MaterialCardView card;
+    private BluetoothService bluetoothService;
 
-    public PairDeviceDialog(Vehicle vehicle, PairViewModel model, int selectedWheel) {
+
+    public PairDeviceDialog(Vehicle vehicle, PairViewModel model, int selectedWheel, MaterialCardView card, BluetoothService bluetoothService) {
         this.mainVehicle = vehicle;
         this.mPairViewModel = model;
         this.selectedWheel = selectedWheel;
+        this.card = card;
+        this.bluetoothService = bluetoothService;
     }
 
     @NonNull
@@ -37,28 +45,40 @@ public class PairDeviceDialog extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View root =inflater.inflate(R.layout.dialog_pair_device, null);
 
-        EditText deviceID = root.findViewById(R.id.deviceIdEditText);
-        Button saveButton = root.findViewById(R.id.pairDeviceSaveButton);
+        Button autoButton = root.findViewById(R.id.pairDeviceAutoButton);
+        Button manualButton = root.findViewById(R.id.pairDeviceManualButton);
         Button unbindButton = root.findViewById(R.id.pairDeviceUnbindButton);
 
-        if (mainVehicle.getDevice(selectedWheel) != null){
-            deviceID.setText(mainVehicle.getDevice(selectedWheel));
+        autoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment pairDeviceFragment = new PairDeviceAutoDialog(mainVehicle, mPairViewModel, selectedWheel, PairDeviceDialog.this, card, bluetoothService);
+                pairDeviceFragment.show(((AppCompatActivity)getContext()).getSupportFragmentManager(), "Pair device auto");
+            }
+        });
 
+        manualButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment pairDeviceFragment = new PairDeviceManualDialog(mainVehicle, mPairViewModel, selectedWheel, PairDeviceDialog.this);
+                pairDeviceFragment.show(((AppCompatActivity)getContext()).getSupportFragmentManager(), "Pair device manual");
+            }
+        });
+
+        if (mainVehicle.getDevice(selectedWheel) != null){
             unbindButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Unbind device").setMessage("Are you sure?").setPositiveButton(R.string.ok, dialogClickListener)
+                    builder.setTitle(R.string.pair_unbind_title).setMessage(R.string.pair_unbind_message).setPositiveButton(R.string.ok, dialogClickListener)
                             .setNegativeButton(R.string.cancel, dialogClickListener).show();
                 }
             });
-        }else {
+        } else {
             unbindButton.setVisibility(View.GONE);
         }
 
-        deviceID.requestFocus();
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        /*saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (deviceID.getText().toString().length() < 6){
@@ -70,7 +90,7 @@ public class PairDeviceDialog extends DialogFragment {
                 }
             }
         });
-
+*/
         builder.setView(root);
 
         return builder.create();

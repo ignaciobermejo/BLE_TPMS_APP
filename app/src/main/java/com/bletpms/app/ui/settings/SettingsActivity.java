@@ -1,5 +1,6 @@
 package com.bletpms.app.ui.settings;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -149,6 +151,31 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
                     Intent intent = new Intent();
                     intent.setClassName(getContext(), "com.bletpms.app.ui.settings.PressureLimitsActivity");
                     startActivity(intent);
+                    return false;
+                }
+            });
+
+            Preference resetPreference = findPreference("reset_settings");
+            resetPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle(R.string.reset_settings_dialog)
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(requireContext());
+                                    pref.edit().clear().apply();
+                                    getPreferenceScreen().removeAll();
+                                    addPreferencesFromResource(R.xml.root_preferences);
+                                }
+                            })
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            }).show();
                     return false;
                 }
             });
