@@ -9,7 +9,8 @@ public class VehicleTypes{
     enum VehicleType {
 
         FOUR_WHEELS("4", 4, "vehicle_layout_four_wheels"),
-        TWO_WHEELS("2", 2, "vehicle_layout_two_wheels"),
+        TWO_WHEELS_MOTO("2", 2, "vehicle_layout_two_wheels"),
+        TWO_WHEELS_BIKE("2b", 2, "vehicle_layout_two_wheels"),
         FOUR_WHEELS_TWO_WHEELS_TRAILER("4+2rem", 6, "vehicle_layout_trailer_six_wheels"),
         FOUR_WHEELS_FOUR_WHEELS_TRAILER("4+4rem", 8, "vehicle_layout_trailer_eight_wheels"),
         TWO_FOUR_WHEELS("2-4", 6, "vehicle_layout_six_wheels"),
