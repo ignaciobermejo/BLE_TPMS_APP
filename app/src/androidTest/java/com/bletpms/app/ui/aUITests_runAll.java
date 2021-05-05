@@ -10,5 +10,5 @@ import org.junit.runners.Suite;
         SettingsActivityTest.class,
         VehiclesFragmentTest.class}
 )
-public class AllUITests {
+public class aUITests_runAll {
 }
