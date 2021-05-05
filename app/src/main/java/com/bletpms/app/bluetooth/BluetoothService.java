@@ -1,6 +1,7 @@
 package com.bletpms.app.bluetooth;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.le.BluetoothLeScanner;
@@ -9,6 +10,7 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -19,6 +21,7 @@ import androidx.databinding.ObservableMap;
 import androidx.fragment.app.DialogFragment;
 
 import com.bletpms.app.MainActivity;
+import com.bletpms.app.R;
 import com.bletpms.app.ui.home.HomeViewModel;
 import com.bletpms.app.utils.DataParser;
 
@@ -45,6 +48,7 @@ public class BluetoothService {
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 2;
 
     private boolean isScanning = false;
+    private boolean locationDialogAlreadyDisplayed = false;
 
     private ObservableMap<String,DeviceBeacon> mBeacons;
 
@@ -131,14 +135,27 @@ public class BluetoothService {
     }
 
     public void requestLocationPermission() {
-        if (isLocationPermissionGranted()) {
+        if (isLocationPermissionGranted()||locationDialogAlreadyDisplayed) {
             return;
         }
         mainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                DialogFragment newFragment = new LocationDialog(LOCATION_PERMISSION_REQUEST_CODE);
-                newFragment.show(mainActivity.getSupportFragmentManager(),"location");
+                /*DialogFragment newFragment = new LocationDialog(LOCATION_PERMISSION_REQUEST_CODE);
+                newFragment.show(mainActivity.getSupportFragmentManager(),"location");*/
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+                builder.setMessage(R.string.location_message)
+                        .setTitle(R.string.location_title)
+                        .setCancelable(false)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mainActivity.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION,
+                                        LOCATION_PERMISSION_REQUEST_CODE);
+                            }
+                        });
+                builder.show();
+                locationDialogAlreadyDisplayed = true;
             }
         });
     }

@@ -56,7 +56,7 @@ public class NewVehicleDialog extends DialogFragment {
                         Toast.makeText(getContext(),"Please, select vehicle type",Toast.LENGTH_SHORT).show();
                     } else {
                         String newVehicleName = vehicleName.getText().toString();
-                        Toast.makeText(getContext(),"Vehicle created!! Name: " + newVehicleName + ", Type: " + adapter.getSelected() ,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(),"Vehicle created!! Name: " + newVehicleName + ", Type: " + adapter.getSelected() ,Toast.LENGTH_SHORT).show();
                         String imageName = adapter.getSelected();
                         String vehicleType = imageName.substring(0, imageName.length() - 4);
                         int numberWheels = VehicleTypes.getAllWheels().get(vehicleType);
@@ -76,15 +76,6 @@ public class NewVehicleDialog extends DialogFragment {
 
     private void createVehicleTypesList(){
         images = VehicleTypes.getImagesName();
-        /*images.add("car.png");
-        images.add("2.png");
-        images.add("4+2rem.png");
-        images.add("4+4rem.png");
-        images.add("2-car.png");
-        images.add("6.png");
-        images.add("1-2.png");
-        images.add("2-1.png");*/
-
         adapter.setImages(images);
     }
 }

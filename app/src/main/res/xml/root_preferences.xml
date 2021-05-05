@@ -3,6 +3,7 @@
 
     <PreferenceCategory android:title="@string/ui_header">
         <ListPreference
+            android:id="@+id/themePref"
             android:defaultValue="@string/theme_def_value"
             android:entries="@array/theme_entries"
             android:entryValues="@array/theme_values"
@@ -14,6 +15,7 @@
 
     <PreferenceCategory app:title="@string/temperature_header">
         <ListPreference
+            android:id="@+id/temperatureUnitPref"
             android:defaultValue="@string/temperature_unit_def_value"
             android:entries="@array/temperature_entries"
             android:entryValues="@array/temperature_values"
@@ -31,19 +33,27 @@
 
     <PreferenceCategory app:title="@string/pressure_header">
         <ListPreference
+            android:id="@+id/pressureUnitPref"
             android:defaultValue="@string/pressure_unit_def_value"
             android:entries="@array/pressure_entries"
             android:entryValues="@array/pressure_values"
             android:key="pressure_unit"
             android:title="@string/pressure_unit"
             app:useSimpleSummaryProvider="true" />
-        <Preference
+        <PreferenceScreen
+            android:id="@+id/pressureLimitsPref"
             android:key="pressure_limits"
             android:title="@string/pressure_limits"
-            android:icon="@drawable/ic_baseline_tune_24"/>
+            android:icon="@drawable/ic_baseline_tune_24">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="com.bletpms.app"
+                android:targetClass="com.bletpms.app.ui.settings.PressureLimitsActivity" />
+        </PreferenceScreen>
     </PreferenceCategory>
 
     <Preference
+        android:id="@+id/resetSettingsPref"
         android:key="reset_settings"
         android:title="@string/reset_settings"
         android:summary="@string/reset_settings_summary"
@@ -51,6 +61,7 @@
         app:allowDividerBelow="true"/>
 
     <Preference
+        android:id="@+id/aboutPref"
         android:key="about"
         android:title="@string/about_title"
         android:icon="@drawable/ic_baseline_info_24" />

@@ -61,7 +61,7 @@ public class VehiclesFragment extends Fragment {
         vehiclesViewModel.getMainVehicle().observe(getViewLifecycleOwner(), new Observer<Vehicle>() {
             @Override
             public void onChanged(Vehicle vehicle) {
-                Toast.makeText(getContext(),"Main vehicle: " + vehicle.getName() ,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(),"Main vehicle: " + vehicle.getName() ,Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -26,12 +26,6 @@ public class DataParser {
         }
     }
 
-/*    public String retManData(String txt, int shift) {
-        // Return only manufacturer data string
-        int start=txt.indexOf("data: ")+6+shift;
-        return txt.substring(start,start+(36-shift));
-    }*/
-
     private static String retByte(String data,int start) {
         // Return a single byte from string
         int sp=(start)*2;

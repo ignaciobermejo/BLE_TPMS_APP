@@ -2,6 +2,7 @@ package com.bletpms.app.ui.pair;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -42,6 +43,8 @@ public class PairDeviceAutoDialog extends DialogFragment {
     private MaterialCardView card;
     private BluetoothService bluetoothService;
 
+    private Handler myHandler;
+
     private static final int SEARCHING_TIME_MS = 30000;
 
     public PairDeviceAutoDialog(Vehicle vehicle, PairViewModel model, int selectedWheel, PairDeviceDialog pairDeviceDialog, MaterialCardView card, BluetoothService bluetoothService) {
@@ -77,9 +80,20 @@ public class PairDeviceAutoDialog extends DialogFragment {
 
                 Log.i(TAG, "Searching NEW devices...");
                 SearchingDeviceDialog dialog = new SearchingDeviceDialog(getActivity(), SEARCHING_TIME_MS);
-                dialog.showDialog();
+                Dialog d = dialog.showDialog();
+                d.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        Log.i(TAG, "Ending search... NEW devices NOT found");
+                        if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
+                        myHandler.removeCallbacksAndMessages(null);
+                        card.findViewById(R.id.pairTextView).setVisibility(View.VISIBLE);
+                        card.findViewById(R.id.progressIndicator).setVisibility(View.GONE);
+                        PairDeviceAutoDialog.this.getDialog().dismiss();
+                    }
+                });
 
-                Handler myHandler = new Handler();
+                myHandler = new Handler();
                 myHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {

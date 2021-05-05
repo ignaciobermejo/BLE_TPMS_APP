@@ -80,7 +80,7 @@ public class PairFragment extends Fragment {
         baseLayout.addView(newRoot);
 
         final ImageView vehicleImage = newRoot.findViewById(R.id.vehicleImageView);
-        vehicleImage.setImageBitmap(new BitmapFromAssetsProvider(getContext(),vehicle.getType()).getBitmap());
+        vehicleImage.setImageBitmap(new BitmapFromAssetsProvider(getContext()).getBitmap(vehicle.getType()));
 
         cards = new ArrayList<>();
         for (int i = 0; i < vehicle.getDevices().length; i++ ){

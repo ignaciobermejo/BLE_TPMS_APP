@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/autoSearchDialog"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/searching_device_dialog">
+    android:background="@drawable/searching_device_dialog"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,25 +20,25 @@
             android:elevation="2dp"
             android:indeterminate="true"
             app:indicatorSize="80dp"
-            app:trackThickness="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:trackThickness="5dp" />
 
         <TextView
             android:id="@+id/countdownTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="60s"
-            android:textColor="@color/white"
-            android:textAlignment="center"
             android:layout_margin="5dp"
+            android:text="60s"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -45,9 +46,9 @@
         android:id="@+id/searchingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pair_auto_searching"
         android:layout_margin="5dp"
-        android:textSize="20sp"
-        android:textColor="@color/white"/>
+        android:text="@string/pair_auto_searching"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.util.Log;
@@ -223,11 +224,13 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
                 }
             });
             if (vehicle.getMain()){
-                mainImageView.setImageResource(R.drawable.ic_baseline_star_24);
-                mainImageView.setColorFilter(ContextCompat.getColor(context,R.color.amber_600),PorterDuff.Mode.SRC_IN);
+                //mainImageView.setImageResource(R.drawable.ic_baseline_star_24);
+                mainImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_star_24));
+                //mainImageView.setColorFilter(ContextCompat.getColor(context,R.color.amber_600),PorterDuff.Mode.SRC_IN);
             }else {
-                mainImageView.setImageResource(R.drawable.ic_baseline_star_outline_24);
-                mainImageView.clearColorFilter();
+                //mainImageView.setImageResource(R.drawable.ic_baseline_star_outline_24);
+                mainImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_star_outline_24));
+                //mainImageView.clearColorFilter();
             }
 
             if (selectedVehicles.contains(vehicle)){

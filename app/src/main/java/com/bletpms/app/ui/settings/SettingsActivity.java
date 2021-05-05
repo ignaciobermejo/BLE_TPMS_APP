@@ -19,6 +19,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+import androidx.preference.PreferenceScreen;
 import androidx.preference.SeekBarPreference;
 
 import com.bletpms.app.R;
@@ -144,7 +145,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
                 }
             });
 
-            Preference pressureLimitsPreference = findPreference("pressure_limits");
+            /*Preference pressureLimitsPreference = findPreference("pressure_limits");
             pressureLimitsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -153,7 +154,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
                     startActivity(intent);
                     return false;
                 }
-            });
+            });*/
 
             Preference resetPreference = findPreference("reset_settings");
             resetPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -167,7 +168,10 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
                                     SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(requireContext());
                                     pref.edit().clear().apply();
                                     getPreferenceScreen().removeAll();
-                                    addPreferencesFromResource(R.xml.root_preferences);
+                                    onCreatePreferences(savedInstanceState, rootKey);
+                                    final String[] pressureInitialValues = getResources().getStringArray(R.array.initial_pressure_values_bar);
+                                    pref.edit().putFloat("pressure_lower_value", pref.getFloat("pressure_lower_value", Float.parseFloat(pressureInitialValues[0]))).apply();
+                                    pref.edit().putFloat("pressure_upper_value", pref.getFloat("pressure_upper_value", Float.parseFloat(pressureInitialValues[1]))).apply();
                                 }
                             })
                             .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

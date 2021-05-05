@@ -11,14 +11,12 @@ import java.io.InputStream;
 public class BitmapFromAssetsProvider {
 
     private final Context context;
-    private final String imageName;
 
-    public BitmapFromAssetsProvider(Context context, String imageName) {
+    public BitmapFromAssetsProvider(Context context) {
         this.context = context;
-        this.imageName = imageName;
     }
 
-    public Bitmap getBitmap(){
+    public Bitmap getBitmap(String imageName){
         try {
             AssetManager assetManager = context.getAssets();
             InputStream is = assetManager.open("vehicles/" + imageName + ".png");
