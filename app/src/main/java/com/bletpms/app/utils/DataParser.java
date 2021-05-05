@@ -16,7 +16,7 @@ public class DataParser {
 
     public static String retManData(byte[] bytes) {
         if (bytes != null){
-            StringBuilder result = new StringBuilder("");
+            StringBuilder result = new StringBuilder();
             for (byte b : bytes) {
                 result.append(String.format("%02X", b));
             }

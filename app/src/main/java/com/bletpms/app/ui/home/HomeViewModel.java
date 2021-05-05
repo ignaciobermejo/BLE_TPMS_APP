@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 public class HomeViewModel extends AndroidViewModel{
 
-    private VehicleRepository mRepository;
-    private LiveData<Vehicle> mMainVehicle;
-    private LiveData<String[]> mDevices;
+    private final VehicleRepository mRepository;
+    private final LiveData<Vehicle> mMainVehicle;
+    private final LiveData<String[]> mDevices;
 
     private ArrayList<VehicleCard> lastCards;
 

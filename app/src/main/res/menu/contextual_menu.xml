@@ -5,22 +5,22 @@
     <item
         android:id="@+id/delete_item_contextual_menu"
         android:icon="@drawable/ic_baseline_delete_24"
-        android:title="delete"
-        android:contentDescription="content_description_delete"
+        android:title="@string/delete_contextual_menu"
+        android:contentDescription="@string/content_description_delete"
         app:showAsAction="ifRoom" />
 
     <group android:id="@+id/single_selection_contextual_menu_group">
         <item
             android:id="@+id/edit_item_contextual_menu"
-            android:contentDescription="content_description_edit"
+            android:contentDescription="@string/content_description_edit"
             android:icon="@drawable/ic_baseline_edit_24"
-            android:title="edit"
+            android:title="@string/edit_contextual_menu"
             app:showAsAction="ifRoom" />
         <item
             android:id="@+id/main_item_contextual_menu"
-            android:contentDescription="content_description_set_main"
+            android:contentDescription="@string/content_description_set_main"
             android:icon="@drawable/ic_baseline_star_border_24"
-            android:title="main"
+            android:title="@string/main_contextual_menu"
             app:showAsAction="ifRoom" />
     </group>
 

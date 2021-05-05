@@ -22,11 +22,11 @@ import com.google.android.material.card.MaterialCardView;
 
 public class PairDeviceDialog extends DialogFragment {
 
-    private PairViewModel mPairViewModel;
-    private Vehicle mainVehicle;
-    private int selectedWheel;
-    private MaterialCardView card;
-    private BluetoothService bluetoothService;
+    private final PairViewModel mPairViewModel;
+    private final Vehicle mainVehicle;
+    private final int selectedWheel;
+    private final MaterialCardView card;
+    private final BluetoothService bluetoothService;
 
 
     public PairDeviceDialog(Vehicle vehicle, PairViewModel model, int selectedWheel, MaterialCardView card, BluetoothService bluetoothService) {
@@ -96,7 +96,7 @@ public class PairDeviceDialog extends DialogFragment {
         return builder.create();
     }
 
-    private DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+    private final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which){

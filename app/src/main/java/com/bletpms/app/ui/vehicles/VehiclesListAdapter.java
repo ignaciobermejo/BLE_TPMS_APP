@@ -1,5 +1,6 @@
 package com.bletpms.app.ui.vehicles;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -39,17 +40,17 @@ import java.util.List;
 
 public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapter.VehicleViewHolder> {
 
-    private Context context;
+    private final Context context;
     private List<Vehicle> mVehicles;
-    private  VehiclesViewModel vehiclesViewModel;
+    private final VehiclesViewModel vehiclesViewModel;
 
     private int counter = 0;
 
     private boolean multiSelected = false;
     private boolean multiSelect = false;
-    private List<Vehicle> selectedVehicles = new ArrayList<>();
+    private final List<Vehicle> selectedVehicles = new ArrayList<>();
     private ActionMode actionMode = null;
-    private DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+    private final DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which){
@@ -66,7 +67,7 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
             }
         }
     };
-    private ActionMode.Callback actionModeCallbacks = new ActionMode.Callback() {
+    private final ActionMode.Callback actionModeCallbacks = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             actionMode = mode;
@@ -83,6 +84,7 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
         }
 
 
+        @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
@@ -179,10 +181,10 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
 
     class VehicleViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView textView;
-        private ImageView imageView;
-        private ImageView mainImageView;
-        private ConstraintLayout itemLayout;
+        private final TextView textView;
+        private final ImageView imageView;
+        private final ImageView mainImageView;
+        private final ConstraintLayout itemLayout;
 
         private VehicleViewHolder(View itemView) {
             super(itemView);

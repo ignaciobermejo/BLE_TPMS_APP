@@ -1,5 +1,6 @@
 package com.bletpms.app.ui.pair;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -35,13 +36,13 @@ public class PairDeviceAutoDialog extends DialogFragment {
 
     private static final String TAG = "AutoPairDialogFragment";
 
-    private PairViewModel mPairViewModel;
-    private Vehicle mainVehicle;
-    private int selectedWheel;
-    private PairDeviceDialog pairDeviceDialog;
+    private final PairViewModel mPairViewModel;
+    private final Vehicle mainVehicle;
+    private final int selectedWheel;
+    private final PairDeviceDialog pairDeviceDialog;
     private View root;
-    private MaterialCardView card;
-    private BluetoothService bluetoothService;
+    private final MaterialCardView card;
+    private final BluetoothService bluetoothService;
 
     private Handler myHandler;
 
@@ -56,13 +57,14 @@ public class PairDeviceAutoDialog extends DialogFragment {
         this.bluetoothService = bluetoothService;
     }
 
+    @SuppressLint("InflateParams")
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        root =inflater.inflate(R.layout.dialog_pair_device_auto, null);
+        root = inflater.inflate(R.layout.dialog_pair_device_auto, null);
 
         TextView textView = root.findViewById(R.id.autoTextView);
         Button searchButton = root.findViewById(R.id.pairDeviceSearchButton);

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:keep="@layout/vehicle_layout_two_wheels">
 
     <ImageView
         android:id="@+id/vehicleImageView"
@@ -12,7 +13,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="140dp"
         android:adjustViewBounds="false"
-        android:contentDescription="vehicle image"
+        android:contentDescription="@string/vehicle_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

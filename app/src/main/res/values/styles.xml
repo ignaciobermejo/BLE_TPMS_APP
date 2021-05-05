@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.DayNight.ActionBar">
         <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
         <item name="android:textColorPrimary">@color/black</item>
@@ -60,7 +60,7 @@
         <item name="cardPreventCornerOverlap">false</item>
     </style>
 
-    <style name="VehicleCard.Large" parent="VehicleCard">
+    <style name="VehicleCard.Large" parent="VehicleCard" tools:keep="@style/VehicleCard/Large">
         <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">150dp</item>
         <item name="android:layout_margin">20dp</item>
@@ -70,7 +70,7 @@
         <item name="android:layout_height">120dp</item>
         <item name="android:layout_margin">10dp</item>
     </style>
-    <style name="VehicleCard.Small" parent="VehicleCard">
+    <style name="VehicleCard.Small" parent="VehicleCard" tools:keep="@style/VehicleCard_Small">
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:layout_margin">10dp</item>

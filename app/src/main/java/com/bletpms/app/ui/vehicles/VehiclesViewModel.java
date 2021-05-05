@@ -14,9 +14,9 @@ import java.util.List;
 
 public class VehiclesViewModel extends AndroidViewModel {
 
-    private VehicleRepository mRepository;
-    private LiveData<List<Vehicle>> mAllVehicles;
-    private LiveData<Vehicle> mMainVehicle;
+    private final VehicleRepository mRepository;
+    private final LiveData<List<Vehicle>> mAllVehicles;
+    private final LiveData<Vehicle> mMainVehicle;
 
     public VehiclesViewModel(Application application) {
         super(application);

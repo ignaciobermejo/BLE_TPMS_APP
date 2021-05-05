@@ -68,7 +68,7 @@ public class VehiclesFragmentTest extends BaseUITest {
         clickBack();
         clickOn(R.id.fab);
 
-        assertHint(R.id.deviceIdEditText, "Vehicle name");
+        assertHint(R.id.deviceIdEditText, R.string.vehicle_name);
         assertRecyclerViewItemCount(R.id.recyclerViewNewVehicle, 11);
     }
 

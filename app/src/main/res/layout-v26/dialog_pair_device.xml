@@ -12,7 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        android:textSize="15sp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
         android:backgroundTint="@color/amber_600"
         android:padding="20dp"
         android:text="@string/pair_auto" />
@@ -23,7 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        android:textSize="15sp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
         android:backgroundTint="@color/amber_600"
         android:padding="20dp"
         android:text="@string/pair_manual" />
@@ -39,7 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        android:textSize="15sp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeTextType="uniform"
         android:backgroundTint="@color/grey_300"
         android:padding="20dp"
         android:text="@string/pair_unbind" />

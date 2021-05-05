@@ -13,7 +13,6 @@
         android:minHeight="80dp">
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/searchingProgressIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -31,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="60s"
+            android:text="@string/_60s"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -43,7 +42,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/searchingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

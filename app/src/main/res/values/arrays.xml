@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Reply Preference -->
     <string-array name="theme_entries">
         <item>@string/theme_entry_system</item>
@@ -39,12 +39,12 @@
         <item>3.0</item>
     </string-array>
 
-    <string-array name="initial_pressure_values_kpa">
+    <string-array name="initial_pressure_values_kpa" tools:keep="@array/initial_pressure_values_kpa">
         <item>204.0</item>
         <item>306.0</item>
     </string-array>
 
-    <string-array name="initial_pressure_values_psi">
+    <string-array name="initial_pressure_values_psi" tools:keep="@array/initial_pressure_values_psi">
         <item>29.0</item>
         <item>43.5</item>
     </string-array>

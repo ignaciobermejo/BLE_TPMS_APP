@@ -50,9 +50,9 @@ public class VehicleCard {
 
     SharedPreferences preferences;
 
-    private CircularProgressIndicator progressIndicator;
+    private final CircularProgressIndicator progressIndicator;
 
-    private Group dataViewsGroups;
+    private final Group dataViewsGroups;
 
 
     public VehicleCard(Context context, MaterialCardView baseCard) {
@@ -83,7 +83,7 @@ public class VehicleCard {
 
     public void getPreferences(){
         this.temperatureUnitPref = preferences.getString("temperature_unit", context.getResources().getString(R.string.temperature_unit_def_value));
-        this.pressureUnitPref = preferences.getString("pressure_unit", context.getResources().getString(R.string.pressure_unit_def_value));;
+        this.pressureUnitPref = preferences.getString("pressure_unit", context.getResources().getString(R.string.pressure_unit_def_value));
         this.temperatureUpperLimitPref = preferences.getInt("temperature_upper_limit", 65);
         this.pressureLowerLimitPref = preferences.getFloat("pressure_lower_value", (float) PressureLimitsActivity.defaultLowerBar);
         this.pressureUpperLimitPref = preferences.getFloat("pressure_upper_value", (float) PressureLimitsActivity.defaultUpperBar);

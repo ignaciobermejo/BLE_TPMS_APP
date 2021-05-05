@@ -13,7 +13,8 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
-android:layout_height="match_parent">
+android:layout_height="match_parent"
+    tools:keep="@layout/vehicle_layout_trailer_eight_wheels">
 
 <ImageView
     android:id="@+id/vehicleImageView"
@@ -23,7 +24,7 @@ android:layout_height="match_parent">
     android:layout_marginTop="100dp"
     android:layout_marginEnd="120dp"
     android:layout_marginBottom="100dp"
-    android:contentDescription="vehicle image"
+    android:contentDescription="@string/vehicle_image"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.0"
@@ -91,9 +92,7 @@ android:layout_height="match_parent">
     app:layout_constraintTop_toBottomOf="@id/layout3"
     app:layout_constraintBottom_toTopOf="@id/layout7">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card5"
-        style="@style/VehicleCard.Medium" />
+    <com.google.android.material.card.MaterialCardView style="@style/VehicleCard.Medium" />
 </RelativeLayout>
 
 <RelativeLayout
@@ -104,9 +103,7 @@ android:layout_height="match_parent">
     app:layout_constraintTop_toBottomOf="@id/layout4"
     app:layout_constraintBottom_toTopOf="@id/layout8">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card6"
-        style="@style/VehicleCard.Medium" />
+    <com.google.android.material.card.MaterialCardView style="@style/VehicleCard.Medium" />
 </RelativeLayout>
 
 <RelativeLayout
@@ -116,9 +113,7 @@ android:layout_height="match_parent">
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card7"
-        style="@style/VehicleCard.Medium" />
+    <com.google.android.material.card.MaterialCardView style="@style/VehicleCard.Medium" />
 </RelativeLayout>
 
 <RelativeLayout
@@ -128,9 +123,7 @@ android:layout_height="match_parent">
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card8"
-        style="@style/VehicleCard.Medium" />
+    <com.google.android.material.card.MaterialCardView style="@style/VehicleCard.Medium" />
 </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,9 +34,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/amber_600"
             android:padding="20dp"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeMaxTextSize="20sp"
+            android:textSize="15sp"
             android:text="@string/cancel" />
         <Button
             android:id="@+id/pairDeviceSaveButton"
@@ -46,9 +44,7 @@
             android:padding="20dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:autoSizeTextType="uniform"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeMaxTextSize="20sp"
+            android:textSize="15sp"
             android:text="@string/pair_manual_save"/>
     </LinearLayout>
 

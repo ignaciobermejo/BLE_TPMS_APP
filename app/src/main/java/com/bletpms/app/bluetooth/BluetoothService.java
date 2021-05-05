@@ -50,7 +50,7 @@ public class BluetoothService {
     private boolean isScanning = false;
     private boolean locationDialogAlreadyDisplayed = false;
 
-    private ObservableMap<String,DeviceBeacon> mBeacons;
+    private final ObservableMap<String,DeviceBeacon> mBeacons;
 
     public BluetoothService(MainActivity mainActivity, Context context) {
         this.mainActivity = mainActivity;
@@ -85,7 +85,7 @@ public class BluetoothService {
         setScanningState(false);
     }
 
-    private ScanCallback mScanCallback = new ScanCallback() {
+    private final ScanCallback mScanCallback = new ScanCallback() {
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
             Log.d(TAG, "onScanResult");

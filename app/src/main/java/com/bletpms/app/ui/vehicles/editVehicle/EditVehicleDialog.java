@@ -20,9 +20,9 @@ import com.bletpms.app.ui.vehicles.newVehicle.NewVehicleAdapter;
 
 public class EditVehicleDialog extends DialogFragment {
 
-    private VehiclesViewModel mVehiclesViewModel;
+    private final VehiclesViewModel mVehiclesViewModel;
     private NewVehicleAdapter adapter;
-    private Vehicle selectedVehicle;
+    private final Vehicle selectedVehicle;
 
     public EditVehicleDialog(Vehicle vehicle, VehiclesViewModel model) {
         this.selectedVehicle = vehicle;

@@ -17,7 +17,8 @@
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/vehicleItemLinearLayout"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/main_vehicle_icon" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -29,7 +30,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/mainImageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/checkedImageView"
@@ -38,7 +40,8 @@
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_baseline_check_24"
             android:visibility="gone"
-            app:tint="@color/amber_600"/>
+            app:tint="@color/amber_600"
+            android:contentDescription="@string/vehicle_selected_icon" />
 
         <TextView
             android:id="@+id/vehicleTextView"

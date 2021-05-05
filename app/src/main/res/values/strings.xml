@@ -34,7 +34,6 @@
     <string name="temperature_unit">Unidad</string>
     <string name="temperature_unit_def_value" translatable="false">celsius</string>
     <string name="temperature_upper_limit">Límite <b>superior</b> de advertencia</string>
-    <string name="temperature_lower_limit">Límite <b>inferior</b> de advertencia</string>
 
     <!-- Pressure Preferences -->
     <string name="pressure_unit">Unidad</string>
@@ -58,4 +57,32 @@
     <string name="about_title">Acerca de</string>
     <string name="about_message" translatable="false">Ignacio Bermejo Álvarez - 2021. Escuela Ingeniería Informática - Universidad de Oviedo.</string>
     <string name="about_link" translatable="false"><a href="https://github.com/ignaciobermejo/TPMS-app">https://github.com/ignaciobermejo/TPMS-app</a></string>
+
+    <!-- Content description -->
+    <string name="vehicle_image" translatable="false">vehicle image</string>
+    <string name="add_new_vehicle" translatable="false">Add new vehicle</string>
+    <string name="_60s" translatable="false">60s</string>
+    <string name="vehicle_name">Nombre del vehículo</string>
+    <string name="select_number_of_wheels">Seleccione el tipo de vehículo</string>
+    <string name="save">Guardar</string>
+    <string name="content_description_delete" translatable="false">content_description_delete</string>
+    <string name="content_description_edit" translatable="false">content_description_edit</string>
+    <string name="content_description_set_main" translatable="false">content_description_set_main</string>
+    <string name="delete_contextual_menu" translatable="false">delete</string>
+    <string name="edit_contextual_menu" translatable="false">edit</string>
+    <string name="main_contextual_menu" translatable="false">main</string>
+    <string name="_24_c_card_example" translatable="false">24ºC</string>
+    <string name="_306_0_card_example" translatable="false">306.0</string>
+    <string name="bar_card_example" translatable="false">BAR</string>
+    <string name="no_pressure_data" translatable="false">--</string>
+    <string name="no_temperature_data" translatable="false">--</string>
+    <string name="celsius_default_unit" translatable="false">ºC</string>
+    <string name="pressure_default_unit" translatable="false">BAR</string>
+    <string name="signal_icon" translatable="false">signal icon</string>
+    <string name="pressure_icon" translatable="false">pressure icon</string>
+    <string name="temperature_icon" translatable="false">temperature icon</string>
+    <string name="battery_icon" translatable="false">battery icon</string>
+    <string name="main_vehicle_icon" translatable="false">main vehicle icon</string>
+    <string name="vehicle_selected_icon" translatable="false">vehicle selected icon</string>
+    <string name="vehicle_type_image" translatable="false">vehicle type image</string>
 </resources>

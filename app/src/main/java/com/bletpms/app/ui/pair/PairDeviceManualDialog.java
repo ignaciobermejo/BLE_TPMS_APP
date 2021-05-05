@@ -19,10 +19,10 @@ import com.bletpms.app.database.Vehicle;
 
 public class PairDeviceManualDialog extends DialogFragment {
 
-    private PairViewModel mPairViewModel;
-    private Vehicle mainVehicle;
-    private int selectedWheel;
-    private PairDeviceDialog pairDeviceDialog;
+    private final PairViewModel mPairViewModel;
+    private final Vehicle mainVehicle;
+    private final int selectedWheel;
+    private final PairDeviceDialog pairDeviceDialog;
 
     public PairDeviceManualDialog(Vehicle vehicle, PairViewModel model, int selectedWheel, PairDeviceDialog pairDeviceDialog) {
         this.mainVehicle = vehicle;

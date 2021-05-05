@@ -19,7 +19,8 @@
             android:id="@+id/image"
             android:layout_width="80dp"
             android:layout_height="120dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"
+            android:contentDescription="@string/vehicle_type_image" />
     </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>

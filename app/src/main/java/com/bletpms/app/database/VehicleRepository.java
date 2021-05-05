@@ -8,10 +8,10 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class VehicleRepository {
-    private VehicleDAO mVehicleDAO;
-    private LiveData<List<Vehicle>> mAllVehicles;
-    private LiveData<Vehicle> mMainVehicle;
-    private LiveData<String[]> mDevices;
+    private final VehicleDAO mVehicleDAO;
+    private final LiveData<List<Vehicle>> mAllVehicles;
+    private final LiveData<Vehicle> mMainVehicle;
+    private final LiveData<String[]> mDevices;
 
     public VehicleRepository(Application application) {
         AppDatabase db = AppDatabase.getInstance(application);

@@ -15,9 +15,9 @@ import java.util.concurrent.ExecutionException;
 
 public class PairViewModel extends AndroidViewModel {
 
-    private VehicleRepository mRepository;
-    private LiveData<Vehicle> mMainVehicle;
-    private LiveData<String[]> mDevices;
+    private final VehicleRepository mRepository;
+    private final LiveData<Vehicle> mMainVehicle;
+    private final LiveData<String[]> mDevices;
 
     public PairViewModel(Application application) {
         super(application);

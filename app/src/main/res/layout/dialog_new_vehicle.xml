@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -16,13 +15,12 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Vehicle name"
+        android:hint="@string/vehicle_name"
         android:inputType="text"
         android:autofillHints=""
         android:imeOptions="actionDone"/>
 
     <TextView
-        android:id="@+id/numWheelsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -30,7 +28,7 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:gravity="center"
-        android:text="Select number of wheels" />
+        android:text="@string/select_number_of_wheels" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewNewVehicle"
@@ -161,7 +159,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/amber_600"
         android:padding="20dp"
-        android:text="Save"/>
+        android:text="@string/save"/>
 
     <!--   <LinearLayout
            android:layout_width="match_parent"
