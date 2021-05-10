@@ -4,6 +4,8 @@ import android.bluetooth.le.ScanRecord;
 
 import com.bletpms.app.utils.DataParser;
 
+import org.jetbrains.annotations.NotNull;
+
 public class DeviceBeacon {
 
     private final String mName;
@@ -46,9 +48,7 @@ public class DeviceBeacon {
         return mName;
     }
 
-    public String getAddress() {
-        return mAddress;
-    }
+    /*public String getAddress() { return mAddress; }
 
     public int getSignal() {
         return mSignal;
@@ -56,7 +56,7 @@ public class DeviceBeacon {
 
     public int getSensorNumber() {
         return mSensorNumber;
-    }
+    }*/
 
     public double getTemperatureCelsius() {
         return mTemperatureCelsius;
@@ -86,6 +86,7 @@ public class DeviceBeacon {
         return mAlarmFlag;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "DeviceBeacon{" +

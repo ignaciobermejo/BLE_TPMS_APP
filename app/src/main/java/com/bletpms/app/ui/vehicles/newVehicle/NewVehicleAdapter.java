@@ -1,9 +1,6 @@
 package com.bletpms.app.ui.vehicles.newVehicle;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bletpms.app.R;
+import com.bletpms.app.utils.BitmapFromAssetsProvider;
 import com.google.android.material.card.MaterialCardView;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class NewVehicleAdapter extends RecyclerView.Adapter<NewVehicleAdapter.VehicleViewHolder>{
@@ -60,8 +56,8 @@ public class NewVehicleAdapter extends RecyclerView.Adapter<NewVehicleAdapter.Ve
 
 
     class VehicleViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        MaterialCardView card;
+        final ImageView image;
+        final MaterialCardView card;
 
         private VehicleViewHolder(View itemView) {
             super(itemView);
@@ -75,24 +71,21 @@ public class NewVehicleAdapter extends RecyclerView.Adapter<NewVehicleAdapter.Ve
             } else {
                 card.setChecked(checkedPosition == getAdapterPosition());
             }
-
-            try {
+            image.setImageBitmap(new BitmapFromAssetsProvider(mContext).getBitmap(imageName.substring(0,imageName.length()-4)));
+            /*try {
                 AssetManager assetManager = mContext.getAssets();
                 InputStream is = assetManager.open("vehicles/" + imageName);
                 Bitmap bitmap = BitmapFactory.decodeStream(is);
                 image.setImageBitmap(bitmap);
 
             }catch (IOException e){
-            }
+            }*/
 
-            card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    card.setChecked(true);
-                    if (checkedPosition != getAdapterPosition()){
-                        notifyItemChanged(checkedPosition);
-                        checkedPosition = getAdapterPosition();
-                    }
+            card.setOnClickListener(v -> {
+                card.setChecked(true);
+                if (checkedPosition != getAdapterPosition()){
+                    notifyItemChanged(checkedPosition);
+                    checkedPosition = getAdapterPosition();
                 }
             });
         }

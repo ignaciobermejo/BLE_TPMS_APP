@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Vehicle.class}, version = 1, exportSchema = false)
@@ -18,6 +19,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract VehicleDAO vehicleDAO();
 
     private static volatile AppDatabase INSTANCE;
+
+    public static final ExecutorService databaseWriterExecutor = Executors.newSingleThreadExecutor();
 
     public synchronized static AppDatabase getInstance(Context context) {
         if (INSTANCE == null) {
@@ -32,12 +35,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                 @Override
                                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
                                     super.onCreate(db);
-                                    Executors.newSingleThreadExecutor().execute(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            getInstance(context).vehicleDAO().insert(Vehicle.defaultVehicle());
-                                        }
-                                    });
+                                    databaseWriterExecutor.execute(() -> getInstance(context).vehicleDAO().insert(Vehicle.defaultVehicle()));
                                 }
                             })
                             .build();

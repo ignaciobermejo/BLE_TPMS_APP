@@ -16,12 +16,12 @@ import androidx.fragment.app.DialogFragment;
 import com.bletpms.app.R;
 import com.bletpms.app.database.Vehicle;
 import com.bletpms.app.ui.vehicles.VehiclesViewModel;
-import com.bletpms.app.ui.vehicles.newVehicle.NewVehicleAdapter;
+
+import java.util.Objects;
 
 public class EditVehicleDialog extends DialogFragment {
 
     private final VehiclesViewModel mVehiclesViewModel;
-    private NewVehicleAdapter adapter;
     private final Vehicle selectedVehicle;
 
     public EditVehicleDialog(Vehicle vehicle, VehiclesViewModel model) {
@@ -41,16 +41,13 @@ public class EditVehicleDialog extends DialogFragment {
         vehicleName.setText(selectedVehicle.getName());
         vehicleName.requestFocus();
         Button saveButton = root.findViewById(R.id.pairDeviceSaveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (vehicleName.getText().toString().matches("")){
-                    Toast.makeText(getContext(),"Please, enter a vehicle name",Toast.LENGTH_SHORT).show();
-                } else {
-                    selectedVehicle.setName(vehicleName.getText().toString().trim());
-                    mVehiclesViewModel.update(selectedVehicle);
-                    EditVehicleDialog.this.getDialog().cancel();
-                }
+        saveButton.setOnClickListener(v -> {
+            if (vehicleName.getText().toString().matches("")){
+                Toast.makeText(getContext(),"Please, enter a vehicle name",Toast.LENGTH_SHORT).show();
+            } else {
+                selectedVehicle.setName(vehicleName.getText().toString().trim());
+                mVehiclesViewModel.update(selectedVehicle);
+                Objects.requireNonNull(EditVehicleDialog.this.getDialog()).cancel();
             }
         });
 

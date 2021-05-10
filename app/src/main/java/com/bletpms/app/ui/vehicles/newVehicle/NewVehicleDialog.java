@@ -22,6 +22,7 @@ import com.bletpms.app.ui.vehicles.VehiclesViewModel;
 import com.bletpms.app.utils.VehicleTypes;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class NewVehicleDialog extends DialogFragment {
 
@@ -46,25 +47,22 @@ public class NewVehicleDialog extends DialogFragment {
 
         EditText vehicleName = root.findViewById(R.id.deviceIdEditText);
         Button saveButton = root.findViewById(R.id.pairDeviceSaveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (vehicleName.getText().toString().matches("")){
-                    Toast.makeText(getContext(),"Please, enter a vehicle name",Toast.LENGTH_SHORT).show();
+        saveButton.setOnClickListener(v -> {
+            if (vehicleName.getText().toString().matches("")){
+                Toast.makeText(getContext(),"Please, enter a vehicle name",Toast.LENGTH_SHORT).show();
+            } else {
+                if (adapter.getSelected() == null){
+                    Toast.makeText(getContext(),"Please, select vehicle type",Toast.LENGTH_SHORT).show();
                 } else {
-                    if (adapter.getSelected() == null){
-                        Toast.makeText(getContext(),"Please, select vehicle type",Toast.LENGTH_SHORT).show();
-                    } else {
-                        String newVehicleName = vehicleName.getText().toString();
-                        //Toast.makeText(getContext(),"Vehicle created!! Name: " + newVehicleName + ", Type: " + adapter.getSelected() ,Toast.LENGTH_SHORT).show();
-                        String imageName = adapter.getSelected();
-                        String vehicleType = imageName.substring(0, imageName.length() - 4);
-                        int numberWheels = VehicleTypes.getAllWheels().get(vehicleType);
-                        Vehicle vehicle = new Vehicle(newVehicleName, vehicleType, numberWheels);
-                        mVehiclesViewModel = new ViewModelProvider(requireParentFragment()).get(VehiclesViewModel.class);
-                        mVehiclesViewModel.insert(vehicle);
-                        NewVehicleDialog.this.getDialog().cancel();
-                    }
+                    String newVehicleName = vehicleName.getText().toString();
+                    //Toast.makeText(getContext(),"Vehicle created!! Name: " + newVehicleName + ", Type: " + adapter.getSelected() ,Toast.LENGTH_SHORT).show();
+                    String imageName = adapter.getSelected();
+                    String vehicleType = imageName.substring(0, imageName.length() - 4);
+                    int numberWheels = Objects.requireNonNull(VehicleTypes.getAllWheels().get(vehicleType));
+                    Vehicle vehicle = new Vehicle(newVehicleName, vehicleType, numberWheels);
+                    mVehiclesViewModel = new ViewModelProvider(requireParentFragment()).get(VehiclesViewModel.class);
+                    mVehiclesViewModel.insert(vehicle);
+                    Objects.requireNonNull(NewVehicleDialog.this.getDialog()).cancel();
                 }
             }
         });

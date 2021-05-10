@@ -35,23 +35,16 @@ import java.util.Objects;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.longClick;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.schibsted.spain.barista.assertion.BaristaListAssertions.assertCustomAssertionAtPosition;
 import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn;
-import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.longClickOn;
 import static com.schibsted.spain.barista.interaction.BaristaDialogInteractions.clickDialogPositiveButton;
-import static com.schibsted.spain.barista.interaction.BaristaEditTextInteractions.clearText;
 import static com.schibsted.spain.barista.interaction.BaristaEditTextInteractions.writeTo;
 import static com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItem;
 import static com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItemChild;
 import static com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep;
 import static com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleepThread;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 
 public class TestUtil {
 
@@ -128,7 +121,7 @@ public class TestUtil {
         return new DrawableMatcher(resourceId);
     }
 
-    public static void assertToast(Activity activity, String message){
+    public static void assertToast(String message){
         onView(withText(message)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }

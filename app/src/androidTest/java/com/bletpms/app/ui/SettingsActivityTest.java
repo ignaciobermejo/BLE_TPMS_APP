@@ -1,22 +1,10 @@
 package com.bletpms.app.ui;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.rule.ActivityTestRule;
 
-import com.bletpms.app.MainActivity;
 import com.bletpms.app.R;
 import com.bletpms.app.testCommon.BaseUITest;
-import com.bletpms.app.testCommon.TestUtil;
-import com.google.common.truth.Truth;
-import com.schibsted.spain.barista.interaction.PermissionGranter;
 import com.schibsted.spain.barista.rule.cleardata.ClearPreferencesRule;
 
 import org.junit.Before;
@@ -34,9 +22,6 @@ import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.c
 import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn;
 import static com.schibsted.spain.barista.interaction.BaristaDialogInteractions.clickDialogPositiveButton;
 import static com.google.common.truth.Truth.assertThat;
-import static com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItem;
-import static com.schibsted.spain.barista.interaction.BaristaListInteractions.scrollListToPosition;
-import static com.schibsted.spain.barista.interaction.BaristaScrollInteractions.scrollTo;
 import static com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep;
 
 public class SettingsActivityTest extends BaseUITest {

@@ -1,7 +1,6 @@
 package com.bletpms.app.database;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -11,14 +10,12 @@ public class VehicleRepository {
     private final VehicleDAO mVehicleDAO;
     private final LiveData<List<Vehicle>> mAllVehicles;
     private final LiveData<Vehicle> mMainVehicle;
-    private final LiveData<String[]> mDevices;
 
     public VehicleRepository(Application application) {
         AppDatabase db = AppDatabase.getInstance(application);
         mVehicleDAO = db.vehicleDAO();
         mAllVehicles = mVehicleDAO.getAll();
         mMainVehicle = mVehicleDAO.getMain();
-        mDevices = mVehicleDAO.getDevices();
     }
 
     public LiveData<List<Vehicle>> getAllVehicles() {
@@ -27,36 +24,47 @@ public class VehicleRepository {
 
     public LiveData<Vehicle> getMainVehicle() { return mMainVehicle; }
 
-    public LiveData<String[]> getDevices(){return mDevices;}
+    public void insert(Vehicle vehicle){
+        //new insertAsyncTask(mVehicleDAO).execute(vehicle);
+        AppDatabase.databaseWriterExecutor.execute(() -> {
+            List<Vehicle>mains = mVehicleDAO.getMains();
+            for (Vehicle v:mains) {
+                v.setMain(false);
+            }
+            mVehicleDAO.updateAll(mains);
+            mVehicleDAO.insert(vehicle);
+        });
+    }
 
-    public void insert(Vehicle vehicle){ new insertAsyncTask(mVehicleDAO).execute(vehicle);}
+    public void delete(Vehicle vehicle){
+        //new deleteAsyncTask(mVehicleDAO).execute(vehicle);
+        AppDatabase.databaseWriterExecutor.execute(() -> mVehicleDAO.delete(vehicle));
+    }
 
-    public void delete(Vehicle vehicle){ new deleteAsyncTask(mVehicleDAO).execute(vehicle);}
-
-    public void update(Vehicle vehicle){ new updateAsyncTask(mVehicleDAO).execute(vehicle);}
+    public void update(Vehicle vehicle){
+        //new updateAsyncTask(mVehicleDAO).execute(vehicle);
+        AppDatabase.databaseWriterExecutor.execute(() -> mVehicleDAO.update(vehicle));
+    }
 
     public void setMain(Vehicle newMainVehicle){
         Vehicle old = mMainVehicle.getValue();
-        old.setMain(false);
-        new updateAsyncTask(mVehicleDAO).execute(old);
+        if (old != null) old.setMain(false);
+        //new updateAsyncTask(mVehicleDAO).execute(old);
+        update(old);
         newMainVehicle.setMain(true);
-        new updateAsyncTask(mVehicleDAO).execute(newMainVehicle);
+        update(newMainVehicle);
+        //new updateAsyncTask(mVehicleDAO).execute(newMainVehicle);
     }
-
+    /*
     public Vehicle getMain(){
         final Vehicle[] vehicle = new Vehicle[1];
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                vehicle[0] = mVehicleDAO.getMainSync();
-            }
-        });
+        AsyncTask.execute(() -> vehicle[0] = mVehicleDAO.getMainSync());
         return vehicle[0];
     }
 
-    /*public String[] getDevicesSync(){
+    public String[] getDevicesSync(){
         return new getDevicesAsyncTask(mVehicleDAO).get();
-    }*/
+    }
 
     private static class insertAsyncTask extends AsyncTask<Vehicle, Void, Void> {
 
@@ -120,5 +128,5 @@ public class VehicleRepository {
         protected String[] doInBackground(Void... voids) {
             return this.mAsyncTaskDao.getDevicesSync();
         }
-    }
+    }*/
 }

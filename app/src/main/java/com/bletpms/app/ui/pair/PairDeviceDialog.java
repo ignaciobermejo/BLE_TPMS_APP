@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,30 +47,21 @@ public class PairDeviceDialog extends DialogFragment {
         Button manualButton = root.findViewById(R.id.pairDeviceManualButton);
         Button unbindButton = root.findViewById(R.id.pairDeviceUnbindButton);
 
-        autoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment pairDeviceFragment = new PairDeviceAutoDialog(mainVehicle, mPairViewModel, selectedWheel, PairDeviceDialog.this, card, bluetoothService);
-                pairDeviceFragment.show(((AppCompatActivity)getContext()).getSupportFragmentManager(), "Pair device auto");
-            }
+        autoButton.setOnClickListener(v -> {
+            DialogFragment pairDeviceFragment = new PairDeviceAutoDialog(mainVehicle, mPairViewModel, selectedWheel, PairDeviceDialog.this, card, bluetoothService);
+            pairDeviceFragment.show(((AppCompatActivity)requireContext()).getSupportFragmentManager(), "Pair device auto");
         });
 
-        manualButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment pairDeviceFragment = new PairDeviceManualDialog(mainVehicle, mPairViewModel, selectedWheel, PairDeviceDialog.this);
-                pairDeviceFragment.show(((AppCompatActivity)getContext()).getSupportFragmentManager(), "Pair device manual");
-            }
+        manualButton.setOnClickListener(v -> {
+            DialogFragment pairDeviceFragment = new PairDeviceManualDialog(mainVehicle, mPairViewModel, selectedWheel, PairDeviceDialog.this);
+            pairDeviceFragment.show(((AppCompatActivity)requireContext()).getSupportFragmentManager(), "Pair device manual");
         });
 
         if (mainVehicle.getDevice(selectedWheel) != null){
-            unbindButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle(R.string.pair_unbind_title).setMessage(R.string.pair_unbind_message).setPositiveButton(R.string.ok, dialogClickListener)
-                            .setNegativeButton(R.string.cancel, dialogClickListener).show();
-                }
+            unbindButton.setOnClickListener(v -> {
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+                builder1.setTitle(R.string.pair_unbind_title).setMessage(R.string.pair_unbind_message).setPositiveButton(R.string.ok, dialogClickListener)
+                        .setNegativeButton(R.string.cancel, dialogClickListener).show();
             });
         } else {
             unbindButton.setVisibility(View.GONE);
@@ -103,11 +92,11 @@ public class PairDeviceDialog extends DialogFragment {
                 case DialogInterface.BUTTON_POSITIVE:
                     mainVehicle.setDevice(selectedWheel,null);
                     mPairViewModel.update(mainVehicle);
-                    PairDeviceDialog.this.getDialog().cancel();
+                    PairDeviceDialog.this.requireDialog().cancel();
                     break;
 
                 case DialogInterface.BUTTON_NEGATIVE:
-                    PairDeviceDialog.this.getDialog().cancel();
+                    PairDeviceDialog.this.requireDialog().cancel();
                     break;
             }
         }

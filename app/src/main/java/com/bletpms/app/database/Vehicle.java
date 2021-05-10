@@ -2,11 +2,9 @@ package com.bletpms.app.database;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 @Entity
 public class Vehicle implements Serializable {
@@ -17,7 +15,7 @@ public class Vehicle implements Serializable {
     @NonNull
     private String name;
 
-    private int wheels;
+    private final int wheels;
 
     private String[] devices;
 
@@ -52,10 +50,6 @@ public class Vehicle implements Serializable {
 
     public int getWheels() {
         return wheels;
-    }
-
-    public void setWheels(int wheels) {
-        this.wheels = wheels;
     }
 
     public String[] getDevices() {

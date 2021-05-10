@@ -1,36 +1,15 @@
 package com.bletpms.app.ui;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.espresso.assertion.ViewAssertions;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.ActivityTestRule;
 
-import com.bletpms.app.MainActivity;
 import com.bletpms.app.R;
 import com.bletpms.app.testCommon.BaseUITest;
-import com.bletpms.app.testCommon.TestUtil;
-import com.schibsted.spain.barista.interaction.PermissionGranter;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Objects;
-
-import static com.schibsted.spain.barista.assertion.BaristaBackgroundAssertions.assertHasBackground;
-import static com.schibsted.spain.barista.assertion.BaristaClickableAssertions.assertClickable;
 import static com.schibsted.spain.barista.assertion.BaristaHintAssertions.assertHint;
-import static com.schibsted.spain.barista.assertion.BaristaImageViewAssertions.assertHasAnyDrawable;
-import static com.schibsted.spain.barista.assertion.BaristaImageViewAssertions.assertHasDrawable;
-import static com.schibsted.spain.barista.assertion.BaristaListAssertions.assertCustomAssertionAtPosition;
 import static com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed;
 import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickBack;
@@ -42,7 +21,6 @@ import static com.schibsted.spain.barista.interaction.BaristaListInteractions.cl
 import static com.schibsted.spain.barista.interaction.BaristaMenuClickInteractions.clickMenu;
 import static com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep;
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.junit.Assert.*;
 import static com.bletpms.app.testCommon.TestUtil.*;
 
 @RunWith(AndroidJUnit4.class)
@@ -98,13 +76,13 @@ public class VehiclesFragmentTest extends BaseUITest {
         clickOn(R.id.fab);
         clickOn(R.id.pairDeviceSaveButton);
 
-        assertToast(activityRule.getActivity(), "Please, enter a vehicle name");
+        assertToast("Please, enter a vehicle name");
 
         sleep(2, SECONDS);
         writeTo(R.id.deviceIdEditText, "test vehicle");
         clickOn(R.id.pairDeviceSaveButton);
 
-        assertToast(activityRule.getActivity(), "Please, select vehicle type");
+        assertToast("Please, select vehicle type");
     }
 
     @Test
@@ -187,7 +165,7 @@ public class VehiclesFragmentTest extends BaseUITest {
         clearText(R.id.deviceIdEditText);
         clickOn(R.id.pairDeviceSaveButton);
 
-        assertToast(activityRule.getActivity(), "Please, enter a vehicle name");
+        assertToast("Please, enter a vehicle name");
     }
 
     @Test

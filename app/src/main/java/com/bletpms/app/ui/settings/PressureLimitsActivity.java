@@ -3,7 +3,6 @@ package com.bletpms.app.ui.settings;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
@@ -13,45 +12,27 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bletpms.app.R;
-import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 public class PressureLimitsActivity extends AppCompatActivity {
-
-    private static final double maxBarLower = 2.4D;
 
     private static final double maxBarUpper = 3.6D;
 
     private static final double minBarLower = 0.1D;
 
-    private static final double minBarUpper = 2.8D;
-
     public static final double defaultLowerBar = 2.0D;
 
     public static final double defaultUpperBar = 3.0D;
 
-    private static final int maxKpaLower = 240;
-
     private static final int maxKpaUpper = 360;
 
     private static final int minKpaLower = 10;
-
-    private static final int minKpaUpper = 280;
 
     private static final double defaultLowerKpa = 204;
 
     private static final double defaultUpperKpa = 306;
 
     private static final double minPsiLower = 14.5D;
-
-    private static final double minPsiUpper = 40.6D;
-
-    private static final double maxPsiLower = 21.75D;
 
     private static final double maxPsiUpper = 52.2D;
 
@@ -101,12 +82,7 @@ public class PressureLimitsActivity extends AppCompatActivity {
         setPressureValues(currentPressureUnit);
         setTextViews();
 
-        slider.addOnChangeListener(new RangeSlider.OnChangeListener() {
-            @Override
-            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                setTextViews();
-            }
-        });
+        slider.addOnChangeListener((slider, value, fromUser) -> setTextViews());
     }
 
     private void setTextViews() {

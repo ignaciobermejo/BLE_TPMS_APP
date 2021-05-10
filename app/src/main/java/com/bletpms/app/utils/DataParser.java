@@ -20,7 +20,7 @@ public class DataParser {
             for (byte b : bytes) {
                 result.append(String.format("%02X", b));
             }
-            return result.toString().substring(18,54);
+            return result.substring(18,54);
         } else {
             return null;
         }

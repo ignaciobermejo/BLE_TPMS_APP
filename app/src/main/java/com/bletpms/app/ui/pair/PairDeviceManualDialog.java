@@ -2,7 +2,6 @@ package com.bletpms.app.ui.pair;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,26 +47,18 @@ public class PairDeviceManualDialog extends DialogFragment {
         }
         deviceID.requestFocus();
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (deviceID.getText().toString().length() < 6){
-                    Toast.makeText(getContext(),"Device identifier must be 6 characters",Toast.LENGTH_SHORT).show();
-                } else {
-                    mainVehicle.setDevice(selectedWheel,deviceID.getText().toString().trim());
-                    mPairViewModel.update(mainVehicle);
-                    PairDeviceManualDialog.this.getDialog().cancel();
-                    pairDeviceDialog.getDialog().cancel();
-                }
+        saveButton.setOnClickListener(v -> {
+            if (deviceID.getText().toString().length() < 6){
+                Toast.makeText(getContext(),"Device identifier must be 6 characters",Toast.LENGTH_SHORT).show();
+            } else {
+                mainVehicle.setDevice(selectedWheel,deviceID.getText().toString().trim());
+                mPairViewModel.update(mainVehicle);
+                PairDeviceManualDialog.this.requireDialog().cancel();
+                pairDeviceDialog.requireDialog().cancel();
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PairDeviceManualDialog.this.getDialog().cancel();
-            }
-        });
+        cancelButton.setOnClickListener(v -> PairDeviceManualDialog.this.requireDialog().cancel());
 
         builder.setView(root);
 

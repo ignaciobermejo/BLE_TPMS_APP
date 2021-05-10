@@ -6,9 +6,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.google.common.truth.Truth.assertThat;
-import static com.google.common.truth.MapSubject.*;
 
 public class VehicleTypesTest {
 
@@ -36,7 +36,7 @@ public class VehicleTypesTest {
     @Test
     public void getAllVehicleTypeInfo_existingName_returnsOK(){
         String name = "4";
-        int wheels = VehicleTypes.getAllWheels().get(name);
+        int wheels = Objects.requireNonNull(VehicleTypes.getAllWheels().get(name));
         String layout = VehicleTypes.getAllLayouts().get(name);
         String result = wheels + ", " + layout;
         assertThat(result).matches("4, vehicle_layout_four_wheels");

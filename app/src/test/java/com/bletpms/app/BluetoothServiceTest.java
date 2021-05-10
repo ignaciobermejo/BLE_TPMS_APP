@@ -21,8 +21,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import static org.junit.Assert.*;
-
 @RunWith(RobolectricTestRunner.class)
 @Config(maxSdk = Build.VERSION_CODES.P, minSdk = LOLLIPOP)
 public class BluetoothServiceTest {
@@ -32,7 +30,7 @@ public class BluetoothServiceTest {
     private ScanCallback scanCallback;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         bluetoothLeScanner = adapter.getBluetoothLeScanner();
 

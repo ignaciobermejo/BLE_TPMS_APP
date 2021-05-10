@@ -3,20 +3,16 @@ package com.bletpms.app.ui.pair;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ObservableMap;
 import androidx.fragment.app.DialogFragment;
 
@@ -28,9 +24,7 @@ import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class PairDeviceAutoDialog extends DialogFragment {
 
@@ -40,7 +34,6 @@ public class PairDeviceAutoDialog extends DialogFragment {
     private final Vehicle mainVehicle;
     private final int selectedWheel;
     private final PairDeviceDialog pairDeviceDialog;
-    private View root;
     private final MaterialCardView card;
     private final BluetoothService bluetoothService;
 
@@ -64,61 +57,49 @@ public class PairDeviceAutoDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // Get the layout inflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        root = inflater.inflate(R.layout.dialog_pair_device_auto, null);
+        View root = inflater.inflate(R.layout.dialog_pair_device_auto, null);
 
         TextView textView = root.findViewById(R.id.autoTextView);
         Button searchButton = root.findViewById(R.id.pairDeviceSearchButton);
         Button cancelButton = root.findViewById(R.id.pairDeviceCancelButton);
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (pairDeviceDialog.getDialog() != null) pairDeviceDialog.getDialog().cancel();
+        searchButton.setOnClickListener(v -> {
+            if (pairDeviceDialog.getDialog() != null) pairDeviceDialog.getDialog().cancel();
 
-                card.findViewById(R.id.pairTextView).setVisibility(View.GONE);
-                card.findViewById(R.id.progressIndicator).setVisibility(View.VISIBLE);
+            card.findViewById(R.id.pairTextView).setVisibility(View.GONE);
+            card.findViewById(R.id.progressIndicator).setVisibility(View.VISIBLE);
 
-                PairDeviceAutoDialog.this.getDialog().hide();
+            PairDeviceAutoDialog.this.requireDialog().hide();
 
-                Log.i(TAG, "Searching NEW devices...");
-                SearchingDeviceDialog dialog = new SearchingDeviceDialog(getActivity(), SEARCHING_TIME_MS);
-                Dialog d = dialog.showDialog();
-                d.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        Log.i(TAG, "Ending search... NEW devices NOT found");
-                        if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
-                        myHandler.removeCallbacksAndMessages(null);
-                        card.findViewById(R.id.pairTextView).setVisibility(View.VISIBLE);
-                        card.findViewById(R.id.progressIndicator).setVisibility(View.GONE);
-                        PairDeviceAutoDialog.this.getDialog().dismiss();
-                    }
-                });
+            Log.i(TAG, "Searching NEW devices...");
+            SearchingDeviceDialog dialog = new SearchingDeviceDialog(getActivity(), SEARCHING_TIME_MS);
+            Dialog d = dialog.showDialog();
+            d.setOnCancelListener(dialog1 -> {
+                Log.i(TAG, "Ending search... NEW devices NOT found");
+                if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
+                myHandler.removeCallbacksAndMessages(null);
+                bluetoothService.getBeacons().removeOnMapChangedCallback(null);
+                card.findViewById(R.id.pairTextView).setVisibility(View.VISIBLE);
+                card.findViewById(R.id.progressIndicator).setVisibility(View.GONE);
+                PairDeviceAutoDialog.this.requireDialog().dismiss();
+            });
 
-                myHandler = new Handler();
-                myHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Log.i(TAG, "Ending search... NEW devices NOT found");
-                        if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
-                        dialog.cancelDialog();
-                        card.findViewById(R.id.pairTextView).setVisibility(View.VISIBLE);
-                        card.findViewById(R.id.progressIndicator).setVisibility(View.GONE);
-                        textView.setText(R.string.pair_auto_search_not_found);
-                        PairDeviceAutoDialog.this.getDialog().show();
-                    }
-                }, SEARCHING_TIME_MS);
+            myHandler = new Handler();
+            myHandler.postDelayed(() -> {
+                Log.i(TAG, "Ending search... NEW devices NOT found");
+                if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
+                bluetoothService.getBeacons().removeOnMapChangedCallback(null);
+                dialog.cancelDialog();
+                card.findViewById(R.id.pairTextView).setVisibility(View.VISIBLE);
+                card.findViewById(R.id.progressIndicator).setVisibility(View.GONE);
+                textView.setText(R.string.pair_auto_search_not_found);
+                PairDeviceAutoDialog.this.requireDialog().show();
+            }, SEARCHING_TIME_MS);
 
-                findNewDevices(dialog, myHandler);
-            }
+            findNewDevices(dialog, myHandler);
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PairDeviceAutoDialog.this.getDialog().cancel();
-            }
-        });
+        cancelButton.setOnClickListener(v -> PairDeviceAutoDialog.this.requireDialog().cancel());
 
         builder.setView(root);
 
@@ -131,22 +112,21 @@ public class PairDeviceAutoDialog extends DialogFragment {
         } else {
             if (!bluetoothService.isScanning()) bluetoothService.startBleScan();
         }
-
+        Log.i(TAG, "Starting search for devices...");
         List<String> bindedDevices = new ArrayList<>();
         String[] bindedDevicesArray = mainVehicle.getDevices();
         for (String s : bindedDevicesArray) {
             if (s != null) bindedDevices.add(s);
         }
-        Log.i(TAG, "Devices binded: " + bindedDevices.toString());
+        Log.i(TAG, "Devices binded: " + Arrays.toString(bindedDevices.toArray()));
 
         bluetoothService.getBeacons().addOnMapChangedCallback(new ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>() {
             @Override
             public void onMapChanged(ObservableMap<String, DeviceBeacon> sender, String key) {
 
-                boolean found = false;
-                if (!found && !bindedDevices.contains(key)){
-                    found = true;
-                    Log.i(TAG, "NEW Device found: " + key);
+                if (!bindedDevices.contains(key)){
+
+                    Log.i(TAG, "Ending search... NEW Device found: " + key);
                     if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
                     mainVehicle.setDevice(selectedWheel,key);
                     mPairViewModel.update(mainVehicle);
@@ -154,9 +134,14 @@ public class PairDeviceAutoDialog extends DialogFragment {
                     dialog.cancelDialog();
                     card.findViewById(R.id.pairTextView).setVisibility(View.VISIBLE);
                     card.findViewById(R.id.progressIndicator).setVisibility(View.GONE);
+                    deviceFound();
                     //PairDeviceAutoDialog.this.getDialog().cancel();
                 }
             }
         });
+    }
+
+    private void deviceFound (){
+        bluetoothService.getBeacons().removeOnMapChangedCallback(null);
     }
 }

@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,14 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.databinding.ObservableMap;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
@@ -29,27 +25,22 @@ import com.bletpms.app.R;
 import com.bletpms.app.bluetooth.BluetoothService;
 import com.bletpms.app.bluetooth.DeviceBeacon;
 import com.bletpms.app.database.Vehicle;
-import com.bletpms.app.ui.settings.PressureLimitsActivity;
 import com.bletpms.app.utils.BitmapFromAssetsProvider;
 import com.bletpms.app.utils.VehicleTypes;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment{
     private static final String TAG = "HomeFragment";
 
-    private HomeViewModel homeViewModel;
     private BluetoothService bluetoothService;
     private View root;
-    private ArrayList<MaterialCardView> cards;
     private boolean layoutLoaded = false;
-    private Vehicle mainVehicle;
 
     private ArrayList<VehicleCard> vehicleCards;
-
-    private SharedPreferences preferences;
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -68,26 +59,19 @@ public class HomeFragment extends Fragment{
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
 
         bluetoothService = ((MainActivity)requireActivity()).getBluetoothService();
 
-        homeViewModel.getMainVehicle().observe(getViewLifecycleOwner(), new Observer<Vehicle>() {
-            @Override
-            public void onChanged(Vehicle vehicle) {
-                if (!layoutLoaded){
-                    loadImageAndLayout(vehicle, inflater);
-                    attachDevicesToCards(vehicle.getDevices(),vehicleCards);
-                }
-                mainVehicle = vehicle;
+        homeViewModel.getMainVehicle().observe(getViewLifecycleOwner(), vehicle -> {
+            if (!layoutLoaded){
+                loadImageAndLayout(vehicle, inflater);
+                attachDevicesToCards(vehicle.getDevices(),vehicleCards);
             }
         });
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-        Map<String, ?> allEntries = PreferenceManager.getDefaultSharedPreferences(getContext()).getAll();
+        Map<String, ?> allEntries = PreferenceManager.getDefaultSharedPreferences(requireContext()).getAll();
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
             Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
         }
@@ -99,13 +83,14 @@ public class HomeFragment extends Fragment{
     public void onStart() {
         super.onStart();
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-        getActivity().registerReceiver(mReceiver, filter);
+        requireActivity().registerReceiver(mReceiver, filter);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        getActivity().unregisterReceiver(mReceiver);
+        requireActivity().unregisterReceiver(mReceiver);
+        bluetoothService.getBeacons().removeOnMapChangedCallback(null);
     }
 
     @Override
@@ -144,7 +129,7 @@ public class HomeFragment extends Fragment{
 
                 for (VehicleCard card: vehicleCards) {
                     if (card.isBinded()){
-                        if (card.getDeviceID().matches(sender.get(key).getName()))
+                        if (card.getDeviceID().matches(Objects.requireNonNull(sender.get(key)).getName()))
                             card.updateData(sender.get(card.getDeviceID()));
                     }
                 }
@@ -182,7 +167,7 @@ public class HomeFragment extends Fragment{
         final ImageView vehicleImage = newRoot.findViewById(R.id.vehicleImageView);
         vehicleImage.setImageBitmap(new BitmapFromAssetsProvider(getContext()).getBitmap(vehicle.getType()));
 
-        cards = new ArrayList<>();
+        ArrayList<MaterialCardView> cards = new ArrayList<>();
         for (int i = 0; i < vehicle.getDevices().length; i++ ){
             String cardIDString = "card"+(i+1);
             int cardID = getResources().getIdentifier(cardIDString, "id","com.bletpms.app");
@@ -200,18 +185,7 @@ public class HomeFragment extends Fragment{
         layoutLoaded = true;
     }
 
-    private void createCardsContent(Vehicle vehicle, LayoutInflater inflater) {
-        for (MaterialCardView card: cards) {
-            View newRoot = inflater.inflate(R.layout.card_home, (ViewGroup) root, false);
-            card.addView(newRoot);
-        }
-    }
-
-    private boolean isCardsSizeLarge(String vehicleType){
-        return vehicleType.matches("2|1-2|2-1");
-    }
-
-/*    @Override
+    /*    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key != null && sharedPreferences != null) {
             if (!key.matches("theme")) {

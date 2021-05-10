@@ -1,13 +1,8 @@
 package com.bletpms.app.ui.vehicles;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,18 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.ImageViewCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bletpms.app.R;
 import com.bletpms.app.database.Vehicle;
 import com.bletpms.app.ui.vehicles.editVehicle.EditVehicleDialog;
-import com.bletpms.app.ui.vehicles.newVehicle.NewVehicleDialog;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapter.VehicleViewHolder> {
@@ -90,10 +81,6 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
             switch (item.getItemId()) {
                 case R.id.delete_item_contextual_menu:
 
-                    Log.i("SELECTED", Arrays.toString(selectedVehicles.toArray()));
-                    Log.i("MAIN", vehiclesViewModel.getMainVehicle().getValue().toString());
-
-
                     if (isMainSelected()){
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setMessage("Main vehicle cannot be deleted").setPositiveButton(R.string.ok, null).show();
@@ -126,6 +113,7 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
         private boolean isMainSelected() {
             Vehicle mainVehicle = vehiclesViewModel.getMainVehicle().getValue();
             for (Vehicle v: selectedVehicles) {
+                assert mainVehicle != null;
                 if (v.getId() == mainVehicle.getId()) return true;
             }
             return false;
@@ -215,14 +203,11 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
         void bind(final Vehicle vehicle) {
             textView.setText(vehicle.getName());
 
-            mainImageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (selectedVehicles.isEmpty() && !vehicle.getMain()){
-                        Log.i("MAIN", vehicle.getName());
-                        vehiclesViewModel.setMain(vehicle);
-                        notifyDataSetChanged();
-                    }
+            mainImageView.setOnClickListener(v -> {
+                if (selectedVehicles.isEmpty() && !vehicle.getMain()){
+                    Log.i("MAIN", vehicle.getName());
+                    vehiclesViewModel.setMain(vehicle);
+                    notifyDataSetChanged();
                 }
             });
             if (vehicle.getMain()){
@@ -243,33 +228,27 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
                 imageView.setVisibility(View.GONE);
             }
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (selectedVehicles.isEmpty()){
-                        ((AppCompatActivity)v.getContext()).startSupportActionMode(actionModeCallbacks);
-                        selectItem(vehicle);
-                        return true;
-                    }
-                    return false;
-                }
-            });
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            itemView.setOnLongClickListener(v -> {
+                if (selectedVehicles.isEmpty()){
+                    ((AppCompatActivity)v.getContext()).startSupportActionMode(actionModeCallbacks);
                     selectItem(vehicle);
+                    return true;
+                }
+                return false;
+            });
+            itemView.setOnClickListener(view -> {
+                selectItem(vehicle);
 
-                    if (selectedVehicles.size() > 1){
-                        if (!multiSelected){
-                            actionMode.getMenu().setGroupVisible(R.id.single_selection_contextual_menu_group, false);
-                            multiSelected = true;
-                        }
-                    } else if (actionMode != null){
-                        if (selectedVehicles.isEmpty()) actionMode.finish();
-                        else {
-                            actionMode.getMenu().setGroupVisible(R.id.single_selection_contextual_menu_group, true);
-                            multiSelected = false;
-                        }
+                if (selectedVehicles.size() > 1){
+                    if (!multiSelected){
+                        actionMode.getMenu().setGroupVisible(R.id.single_selection_contextual_menu_group, false);
+                        multiSelected = true;
+                    }
+                } else if (actionMode != null){
+                    if (selectedVehicles.isEmpty()) actionMode.finish();
+                    else {
+                        actionMode.getMenu().setGroupVisible(R.id.single_selection_contextual_menu_group, true);
+                        multiSelected = false;
                     }
                 }
             });

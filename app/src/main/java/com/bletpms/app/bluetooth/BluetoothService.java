@@ -10,7 +10,6 @@ import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -18,12 +17,9 @@ import android.util.Log;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.ObservableArrayMap;
 import androidx.databinding.ObservableMap;
-import androidx.fragment.app.DialogFragment;
 
 import com.bletpms.app.MainActivity;
 import com.bletpms.app.R;
-import com.bletpms.app.ui.home.HomeViewModel;
-import com.bletpms.app.utils.DataParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +30,6 @@ public class BluetoothService {
 
     private final MainActivity mainActivity;
     private final Context context;
-
-    private BluetoothAdapter bluetoothAdapter;
-    private BluetoothLeScanner bleScanner;
-    private ScanSettings scanSettings;
-    private ScanCallback scanCallback;
-
-    private HomeViewModel homeViewModel;
-
-    private DataParser parser;
 
     public static final int ENABLE_BLUETOOTH_REQUEST_CODE = 1;
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 2;
@@ -138,34 +125,23 @@ public class BluetoothService {
         if (isLocationPermissionGranted()||locationDialogAlreadyDisplayed) {
             return;
         }
-        mainActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                /*DialogFragment newFragment = new LocationDialog(LOCATION_PERMISSION_REQUEST_CODE);
-                newFragment.show(mainActivity.getSupportFragmentManager(),"location");*/
+        mainActivity.runOnUiThread(() -> {
+            /*DialogFragment newFragment = new LocationDialog(LOCATION_PERMISSION_REQUEST_CODE);
+            newFragment.show(mainActivity.getSupportFragmentManager(),"location");*/
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
-                builder.setMessage(R.string.location_message)
-                        .setTitle(R.string.location_title)
-                        .setCancelable(false)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                mainActivity.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION,
-                                        LOCATION_PERMISSION_REQUEST_CODE);
-                            }
-                        });
-                builder.show();
-                locationDialogAlreadyDisplayed = true;
-            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+            builder.setMessage(R.string.location_message)
+                    .setTitle(R.string.location_title)
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok, (dialog, id) -> mainActivity.requestPermission(Manifest.permission.ACCESS_FINE_LOCATION,
+                            LOCATION_PERMISSION_REQUEST_CODE));
+            builder.show();
+            locationDialogAlreadyDisplayed = true;
         });
     }
 
     protected boolean isLocationPermissionGranted(){
-        return hasPermission(Manifest.permission.ACCESS_FINE_LOCATION);
-    }
-
-    private boolean hasPermission(String permissionType) {
-        return ContextCompat.checkSelfPermission(context, permissionType) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)== PackageManager.PERMISSION_GRANTED;
     }
 
     public boolean isScanning() {

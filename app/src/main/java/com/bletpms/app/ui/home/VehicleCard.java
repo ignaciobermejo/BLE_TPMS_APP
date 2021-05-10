@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.Group;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
@@ -48,7 +47,7 @@ public class VehicleCard {
 
     private DeviceBeacon lastBeacon;
 
-    SharedPreferences preferences;
+    final SharedPreferences preferences;
 
     private final CircularProgressIndicator progressIndicator;
 
@@ -190,44 +189,12 @@ public class VehicleCard {
         return lastBeacon;
     }
 
-    public MaterialCardView getBaseCard() {
-        return baseCard;
-    }
-
     public boolean isBinded() {
         return isBinded;
     }
 
     public String getDeviceID() {
         return deviceID;
-    }
-
-    public TextView getPressureTextView() {
-        return pressureTextView;
-    }
-
-    public TextView getTemperatureTextView() {
-        return temperatureTextView;
-    }
-
-    public TextView getPressureUnitTextView() {
-        return pressureUnitTextView;
-    }
-
-    public ImageView getSignalImageView() {
-        return signalImageView;
-    }
-
-    public ImageView getPressureImageView() {
-        return pressureImageView;
-    }
-
-    public ImageView getTemperatureImageView() {
-        return temperatureImageView;
-    }
-
-    public ImageView getBatteryImageView() {
-        return batteryImageView;
     }
 
     @NotNull

@@ -2,7 +2,6 @@ package com.bletpms.app.ui.pair;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bletpms.app.MainActivity;
@@ -24,7 +22,6 @@ import com.bletpms.app.database.Vehicle;
 import com.bletpms.app.utils.BitmapFromAssetsProvider;
 import com.bletpms.app.utils.VehicleTypes;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.shape.ShapeAppearanceModel;
 
 import java.util.ArrayList;
 
@@ -46,24 +43,21 @@ public class PairFragment extends Fragment {
 
         bluetoothService = ((MainActivity)requireActivity()).getBluetoothService();
 
-        pairViewModel.getMainVehicle().observe(getViewLifecycleOwner(), new Observer<Vehicle>() {
-            @Override
-            public void onChanged(Vehicle vehicle) {
-                Log.i("MAIN VEHICLE","modified!");
-                if (!layoutLoaded) loadImageAndLayout(vehicle, inflater);
+        pairViewModel.getMainVehicle().observe(getViewLifecycleOwner(), vehicle -> {
+            Log.i("MAIN VEHICLE","modified!");
+            if (!layoutLoaded) loadImageAndLayout(vehicle, inflater);
 
-                for (MaterialCardView card:cards) {
-                    int wheelNumber = cards.indexOf(card)+1;
-                    TextView textView = card.findViewById(R.id.pairTextView);
-                    String deviceID = vehicle.getDevice(wheelNumber);
-                    if (deviceID != null){
-                        //Log.i("VEHICLE DEVICE", vehicle.getDevice(wheelNumber));
-                        textView.setText(deviceID);
-                        //card.setBackgroundColor(ColorUtils.setAlphaComponent(getResources().getColor(R.color.amber_600),150));
-                    }else {
-                        textView.setText(R.string.pair_bind);
-                        //card.setBackgroundColor(getResources().getColor(R.color.white));
-                    }
+            for (MaterialCardView card:cards) {
+                int wheelNumber = cards.indexOf(card)+1;
+                TextView textView = card.findViewById(R.id.pairTextView);
+                String deviceID = vehicle.getDevice(wheelNumber);
+                if (deviceID != null){
+                    //Log.i("VEHICLE DEVICE", vehicle.getDevice(wheelNumber));
+                    textView.setText(deviceID);
+                    //card.setBackgroundColor(ColorUtils.setAlphaComponent(getResources().getColor(R.color.amber_600),150));
+                }else {
+                    textView.setText(R.string.pair_bind);
+                    //card.setBackgroundColor(getResources().getColor(R.color.white));
                 }
             }
         });
@@ -99,17 +93,11 @@ public class PairFragment extends Fragment {
             View newRoot = inflater.inflate(R.layout.card_pair, (ViewGroup) root, false);
             card.addView(newRoot);
 
-            card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DialogFragment pairDeviceFragment = new PairDeviceDialog(vehicle, pairViewModel, cards.indexOf(card)+1, card, bluetoothService);
-                    pairDeviceFragment.show(((AppCompatActivity)getContext()).getSupportFragmentManager(), "Pair device");
-                }
+            card.setOnClickListener(v -> {
+                DialogFragment pairDeviceFragment = new PairDeviceDialog(vehicle, pairViewModel, cards.indexOf(card)+1, card, bluetoothService);
+                pairDeviceFragment.show(((AppCompatActivity)requireContext()).getSupportFragmentManager(), "Pair device");
             });
         }
     }
 
-    private boolean isCardsSizeLarge(String vehicleType){
-        return vehicleType.matches("2|1-2|2-1");
-    }
 }

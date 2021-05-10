@@ -2,7 +2,6 @@ package com.bletpms.app.ui.pair;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.CountDownTimer;
 import android.view.Window;
 import android.widget.TextView;
@@ -13,7 +12,7 @@ import java.util.Locale;
 
 public class SearchingDeviceDialog {
 
-    Activity activity;
+    final Activity activity;
     Dialog dialog;
 
     private CountDownTimer timer;

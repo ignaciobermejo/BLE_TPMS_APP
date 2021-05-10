@@ -5,10 +5,9 @@ import com.bletpms.app.utils.DataParser;
 import org.junit.Test;
 
 import static com.google.common.truth.Truth.assertThat;
-import static org.junit.Assert.*;
 
 public class DataParserTest {
-    byte[]input = {0x02,0x01,0x05,0x03,0x03, (byte) 0xb0, (byte) 0xfb,0x13, (byte) 0xff,0x00,0x01,
+    final byte[]input = {0x02,0x01,0x05,0x03,0x03, (byte) 0xb0, (byte) 0xfb,0x13, (byte) 0xff,0x00,0x01,
             (byte) 0x80, (byte) 0xea, (byte) 0xca,0x10,0x53, (byte) 0x9c,0x3c,
             (byte) 0xe4,0x01,0x00, (byte) 0xe3,0x08,0x00,0x00,0x4b,0x00};
     @Test
@@ -19,8 +18,7 @@ public class DataParserTest {
 
     @Test
     public void retManData_nullInput_returnNull() {
-        String result = DataParser.retManData(null);
-        assertThat(result).isNull();
+        assertThat(DataParser.retManData(null)).isNull();
     }
 
     @Test
