@@ -57,6 +57,28 @@ public class HomeFragment extends Fragment{
         }
     };
 
+    private final ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>
+            beaconsObserver = new ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>() {
+        @Override
+        public void onMapChanged(ObservableMap<String, DeviceBeacon> sender, String key) {
+            Log.i(TAG, "New device added to the map: " + key);
+
+            //Debug info
+            for (Map.Entry<String, DeviceBeacon> entry : sender.entrySet()) {
+                String s = entry.getKey();
+                DeviceBeacon deviceBeacon = entry.getValue();
+                Log.i(TAG, "Device name: " + s + " [" + deviceBeacon.toString() + "]");
+            }
+
+            for (VehicleCard card: vehicleCards) {
+                if (card.isBinded()){
+                    if (card.getDeviceID().matches(Objects.requireNonNull(sender.get(key)).getName()))
+                        card.updateData(sender.get(card.getDeviceID()));
+                }
+            }
+        }
+    };
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -81,6 +103,7 @@ public class HomeFragment extends Fragment{
 
     @Override
     public void onStart() {
+        Log.i(TAG, "ON START");
         super.onStart();
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
         requireActivity().registerReceiver(mReceiver, filter);
@@ -88,13 +111,15 @@ public class HomeFragment extends Fragment{
 
     @Override
     public void onStop() {
+        Log.i(TAG, "ON STOP");
         super.onStop();
         requireActivity().unregisterReceiver(mReceiver);
-        bluetoothService.getBeacons().removeOnMapChangedCallback(null);
+        bluetoothService.getBeacons().removeOnMapChangedCallback(beaconsObserver);
     }
 
     @Override
     public void onPause() {
+        Log.i(TAG, "ON PAUSE");
         super.onPause();
         if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
 
@@ -102,6 +127,7 @@ public class HomeFragment extends Fragment{
 
     @Override
     public void onResume() {
+        Log.i(TAG, "ON RESUME");
         super.onResume();
 
         if (bluetoothService.getBluetoothAdapter() == null || !bluetoothService.getBluetoothAdapter().isEnabled()) {
@@ -117,24 +143,7 @@ public class HomeFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        bluetoothService.getBeacons().addOnMapChangedCallback(new ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>() {
-            @Override
-            public void onMapChanged(ObservableMap<String, DeviceBeacon> sender, String key) {
-                //Debug info
-                for (Map.Entry<String, DeviceBeacon> entry : sender.entrySet()) {
-                    String s = entry.getKey();
-                    DeviceBeacon deviceBeacon = entry.getValue();
-                    Log.i(TAG, "Device name: " + s + " [" + deviceBeacon.toString() + "]");
-                }
-
-                for (VehicleCard card: vehicleCards) {
-                    if (card.isBinded()){
-                        if (card.getDeviceID().matches(Objects.requireNonNull(sender.get(key)).getName()))
-                            card.updateData(sender.get(card.getDeviceID()));
-                    }
-                }
-            }
-        });
+        bluetoothService.getBeacons().addOnMapChangedCallback(beaconsObserver);
     }
 
 
@@ -183,7 +192,7 @@ public class HomeFragment extends Fragment{
         }
 
         layoutLoaded = true;
-    }
+     }
 
     /*    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {

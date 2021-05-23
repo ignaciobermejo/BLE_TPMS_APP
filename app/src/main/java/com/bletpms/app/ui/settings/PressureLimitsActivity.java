@@ -16,7 +16,7 @@ import com.google.android.material.slider.RangeSlider;
 
 public class PressureLimitsActivity extends AppCompatActivity {
 
-    private static final double maxBarUpper = 3.6D;
+    private static final double maxBarUpper = 6.4D;
 
     private static final double minBarLower = 0.1D;
 
@@ -24,7 +24,7 @@ public class PressureLimitsActivity extends AppCompatActivity {
 
     public static final double defaultUpperBar = 3.0D;
 
-    private static final int maxKpaUpper = 360;
+    private static final int maxKpaUpper = 653;
 
     private static final int minKpaLower = 10;
 
@@ -32,9 +32,9 @@ public class PressureLimitsActivity extends AppCompatActivity {
 
     private static final double defaultUpperKpa = 306;
 
-    private static final double minPsiLower = 14.5D;
+    private static final double minPsiLower = 1.5D;
 
-    private static final double maxPsiUpper = 52.2D;
+    private static final double maxPsiUpper = 92.8D;
 
     private static final double defaultLowerPsi = 29.0D;
 
