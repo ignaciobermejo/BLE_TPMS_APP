@@ -27,6 +27,7 @@ import com.bletpms.app.bluetooth.DeviceBeacon;
 import com.bletpms.app.database.Vehicle;
 import com.bletpms.app.utils.BitmapFromAssetsProvider;
 import com.bletpms.app.utils.VehicleTypes;
+import com.bletpms.app.viewmodels.HomeViewModel;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;

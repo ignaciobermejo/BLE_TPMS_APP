@@ -1,4 +1,4 @@
-package com.bletpms.app.ui.vehicles.newVehicle;
+package com.bletpms.app.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

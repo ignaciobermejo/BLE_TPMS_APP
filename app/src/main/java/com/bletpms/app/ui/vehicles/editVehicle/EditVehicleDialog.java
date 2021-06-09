@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.bletpms.app.R;
 import com.bletpms.app.database.Vehicle;
-import com.bletpms.app.ui.vehicles.VehiclesViewModel;
+import com.bletpms.app.viewmodels.VehiclesViewModel;
 
 import java.util.Objects;
 
@@ -43,7 +43,7 @@ public class EditVehicleDialog extends DialogFragment {
         Button saveButton = root.findViewById(R.id.pairDeviceSaveButton);
         saveButton.setOnClickListener(v -> {
             if (vehicleName.getText().toString().matches("")){
-                Toast.makeText(getContext(),"Please, enter a vehicle name",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),R.string.toast_vehicle_name,Toast.LENGTH_SHORT).show();
             } else {
                 selectedVehicle.setName(vehicleName.getText().toString().trim());
                 mVehiclesViewModel.update(selectedVehicle);

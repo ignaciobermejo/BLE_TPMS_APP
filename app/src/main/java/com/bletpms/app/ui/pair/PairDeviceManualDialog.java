@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.bletpms.app.R;
 import com.bletpms.app.database.Vehicle;
+import com.bletpms.app.viewmodels.PairViewModel;
 
 public class PairDeviceManualDialog extends DialogFragment {
 

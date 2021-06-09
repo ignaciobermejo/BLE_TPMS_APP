@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="vehiclesToDelete">
+        <item quantity= "one" > Delete %d vehicle?</item>
+        <item quantity= "other" > Delete %d vehicles?</item>
+    </plurals>
+    <plurals name="vehiclesSelected">
+        <item quantity= "one" > %d selected</item>
+        <item quantity= "other" > %d selected</item>
+    </plurals>
+</resources>

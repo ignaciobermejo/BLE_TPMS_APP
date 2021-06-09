@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 import com.bletpms.app.R;
 import com.bletpms.app.bluetooth.BluetoothService;
 import com.bletpms.app.database.Vehicle;
+import com.bletpms.app.viewmodels.PairViewModel;
 import com.google.android.material.card.MaterialCardView;
 
 public class PairDeviceDialog extends DialogFragment {

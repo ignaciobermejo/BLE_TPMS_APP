@@ -17,7 +17,7 @@
     <string name="pair_unbind_title">Desemparejar dispositivo</string>
     <string name="pair_unbind_message">¿Está seguro?</string>
     <string name="pair_auto">Automático</string>
-    <string name="pair_auto_text">Conecte el dispositivo al neumático y espere 10 segundos. Si el dispositivo no se encuentra, desconecte y repita el proceso.</string>
+    <string name="pair_auto_text">Seleccione \"Buscar\" e instale el sensor  en el neumático.Espere al menos 5 segundos. Si el dispositivo no se encuentra, desinstale y repita el proceso.</string>
     <string name="pair_auto_search">Buscar</string>
     <string name="pair_auto_searching">Buscando…</string>
     <string name="pair_auto_search_not_found">No se han encontrado dispositivos. Por favor, repita el proceso.</string>
@@ -85,4 +85,7 @@
     <string name="main_vehicle_icon" translatable="false">main vehicle icon</string>
     <string name="vehicle_selected_icon" translatable="false">vehicle selected icon</string>
     <string name="vehicle_type_image" translatable="false">vehicle type image</string>
+    <string name="cannot_delete_main">El vehículo principal no puede ser eliminado</string>
+    <string name="toast_vehicle_name">Por favor, ingrese el nombre del vehículo</string>
+    <string name="toast_vehicle_type">Por favor, seleccione el tipo de vehículo</string>
 </resources>

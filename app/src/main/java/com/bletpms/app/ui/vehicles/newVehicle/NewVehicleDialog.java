@@ -17,8 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bletpms.app.R;
+import com.bletpms.app.adapters.NewVehicleAdapter;
 import com.bletpms.app.database.Vehicle;
-import com.bletpms.app.ui.vehicles.VehiclesViewModel;
+import com.bletpms.app.viewmodels.VehiclesViewModel;
 import com.bletpms.app.utils.VehicleTypes;
 
 import java.util.ArrayList;
@@ -49,10 +50,10 @@ public class NewVehicleDialog extends DialogFragment {
         Button saveButton = root.findViewById(R.id.pairDeviceSaveButton);
         saveButton.setOnClickListener(v -> {
             if (vehicleName.getText().toString().matches("")){
-                Toast.makeText(getContext(),"Please, enter a vehicle name",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.toast_vehicle_name,Toast.LENGTH_SHORT).show();
             } else {
                 if (adapter.getSelected() == null){
-                    Toast.makeText(getContext(),"Please, select vehicle type",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.toast_vehicle_type,Toast.LENGTH_SHORT).show();
                 } else {
                     String newVehicleName = vehicleName.getText().toString();
                     //Toast.makeText(getContext(),"Vehicle created!! Name: " + newVehicleName + ", Type: " + adapter.getSelected() ,Toast.LENGTH_SHORT).show();

@@ -1,5 +1,8 @@
 package com.bletpms.app.ui;
 
+import android.content.Context;
+
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.bletpms.app.R;
@@ -41,7 +44,8 @@ public class VehiclesFragmentTest extends BaseUITest {
 
         longClickOnRecyclerViewItem(0);
 
-        assertDisplayed("1 selected");
+        Context context = ApplicationProvider.getApplicationContext();
+        assertDisplayed(context.getResources().getQuantityString(R.plurals.vehiclesSelected, 1, 1));
 
         clickBack();
         clickOn(R.id.fab);
@@ -76,13 +80,13 @@ public class VehiclesFragmentTest extends BaseUITest {
         clickOn(R.id.fab);
         clickOn(R.id.pairDeviceSaveButton);
 
-        assertToast("Please, enter a vehicle name");
+        assertToast(R.string.toast_vehicle_name);
 
         sleep(2, SECONDS);
         writeTo(R.id.deviceIdEditText, "test vehicle");
         clickOn(R.id.pairDeviceSaveButton);
 
-        assertToast("Please, select vehicle type");
+        assertToast(R.string.toast_vehicle_type);
     }
 
     @Test
@@ -129,7 +133,7 @@ public class VehiclesFragmentTest extends BaseUITest {
         longClickOnRecyclerViewItem(1);
         clickMenu(R.id.delete_item_contextual_menu);
 
-        assertDisplayed("Main vehicle cannot be deleted");
+        assertDisplayed(R.string.cannot_delete_main);
 
         clickDialogPositiveButton();
 
@@ -137,7 +141,7 @@ public class VehiclesFragmentTest extends BaseUITest {
         clickListItem(0);
         clickMenu(R.id.delete_item_contextual_menu);
 
-        assertDisplayed("Main vehicle cannot be deleted");
+        assertDisplayed(R.string.cannot_delete_main);
     }
 
     @Test
@@ -165,7 +169,7 @@ public class VehiclesFragmentTest extends BaseUITest {
         clearText(R.id.deviceIdEditText);
         clickOn(R.id.pairDeviceSaveButton);
 
-        assertToast("Please, enter a vehicle name");
+        assertToast(R.string.toast_vehicle_name);
     }
 
     @Test

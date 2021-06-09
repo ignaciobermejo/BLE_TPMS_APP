@@ -1,4 +1,4 @@
-package com.bletpms.app.ui.home;
+package com.bletpms.app.viewmodels;
 
 import android.app.Application;
 
@@ -20,6 +20,6 @@ public class HomeViewModel extends AndroidViewModel{
         mMainVehicle = mRepository.getMainVehicle();
     }
 
-    LiveData<Vehicle> getMainVehicle(){return mMainVehicle;}
+    public LiveData<Vehicle> getMainVehicle(){return mMainVehicle;}
 
 }

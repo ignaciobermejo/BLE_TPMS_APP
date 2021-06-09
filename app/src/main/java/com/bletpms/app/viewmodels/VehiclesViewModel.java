@@ -1,4 +1,4 @@
-package com.bletpms.app.ui.vehicles;
+package com.bletpms.app.viewmodels;
 
 import android.app.Application;
 
@@ -23,8 +23,8 @@ public class VehiclesViewModel extends AndroidViewModel {
         mMainVehicle = mRepository.getMainVehicle();
     }
 
-    LiveData<List<Vehicle>> getAllVehicles() { return mAllVehicles; }
-    LiveData<Vehicle> getMainVehicle(){return mMainVehicle;}
+    public LiveData<List<Vehicle>> getAllVehicles() { return mAllVehicles; }
+    public LiveData<Vehicle> getMainVehicle(){return mMainVehicle;}
 
     public void insert(Vehicle vehicle) {
         mRepository.insert(vehicle);

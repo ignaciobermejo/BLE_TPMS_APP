@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bletpms.app.R;
+import com.bletpms.app.adapters.VehiclesListAdapter;
 import com.bletpms.app.database.Vehicle;
 import com.bletpms.app.ui.vehicles.newVehicle.NewVehicleDialog;
+import com.bletpms.app.viewmodels.VehiclesViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

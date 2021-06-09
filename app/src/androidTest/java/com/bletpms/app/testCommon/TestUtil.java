@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.core.app.ApplicationProvider;
@@ -123,6 +124,10 @@ public class TestUtil {
 
     public static void assertToast(String message){
         onView(withText(message)).inRoot(new ToastMatcher())
+                .check(matches(isDisplayed()));
+    }
+    public static void assertToast(@StringRes int viewId){
+        onView(withText(viewId)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
     }
 

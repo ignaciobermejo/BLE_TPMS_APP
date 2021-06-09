@@ -33,11 +33,14 @@
     <string name="pair_bind">Bind</string>
     <string name="pair_auto_search">Search</string>
     <string name="pair_auto_searching">Searching…</string>
-    <string name="pair_auto_text">Connect the device to the tire and wait 10 seconds. If the device is not found, disconnect and repeat the process.</string>
+    <string name="pair_auto_text">Select \"Search\" and install the sensor on the tire. Wait at least 5 seconds. If the device is not found, uninstall and repeat the process.</string>
     <string name="pair_auto_search_not_found">No devices found. Please repeat the process.</string>
     <string name="pair_unbind_title">Unbind device</string>
     <string name="pair_unbind_message">Are you sure?</string>
     <string name="vehicle_name">Vehicle name</string>
     <string name="select_number_of_wheels">Select vehicle type</string>
     <string name="save">Save</string>
+    <string name="cannot_delete_main">Main vehicle cannot be deleted</string>
+    <string name="toast_vehicle_name">Please, enter a vehicle name</string>
+    <string name="toast_vehicle_type">Please, select vehicle type</string>
 </resources>

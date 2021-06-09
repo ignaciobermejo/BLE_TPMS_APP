@@ -20,7 +20,7 @@ import com.bletpms.app.R;
 import com.bletpms.app.bluetooth.BluetoothService;
 import com.bletpms.app.bluetooth.DeviceBeacon;
 import com.bletpms.app.database.Vehicle;
-import com.bletpms.app.ui.home.VehicleCard;
+import com.bletpms.app.viewmodels.PairViewModel;
 import com.google.android.material.card.MaterialCardView;
 
 import org.jetbrains.annotations.NotNull;
@@ -28,8 +28,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public class PairDeviceAutoDialog extends DialogFragment {
 
@@ -123,7 +121,7 @@ public class PairDeviceAutoDialog extends DialogFragment {
                 PairDeviceAutoDialog.this.requireDialog().show();
             }, SEARCHING_TIME_MS);
 
-            findNewDevices(searchingDeviceDialog, myHandler);
+            findNewDevices();
         });
 
         cancelButton.setOnClickListener(v -> PairDeviceAutoDialog.this.requireDialog().cancel());
@@ -133,7 +131,7 @@ public class PairDeviceAutoDialog extends DialogFragment {
         return builder.create();
     }
 
-    private void findNewDevices(SearchingDeviceDialog dialog, Handler myHandler){
+    private void findNewDevices(){
         if (bluetoothService.getBluetoothAdapter() == null || !bluetoothService.getBluetoothAdapter().isEnabled()) {
             bluetoothService.promptEnableBluetooth();
         } else {
@@ -157,7 +155,4 @@ public class PairDeviceAutoDialog extends DialogFragment {
         return bindedDevices;
     }
 
-    private void deviceFound (){
-        bluetoothService.getBeacons().removeOnMapChangedCallback(null);
-    }
 }

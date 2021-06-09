@@ -1,8 +1,9 @@
-package com.bletpms.app.ui.vehicles;
+package com.bletpms.app.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bletpms.app.R;
 import com.bletpms.app.database.Vehicle;
 import com.bletpms.app.ui.vehicles.editVehicle.EditVehicleDialog;
+import com.bletpms.app.viewmodels.VehiclesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,11 +85,13 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
 
                     if (isMainSelected()){
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setMessage("Main vehicle cannot be deleted").setPositiveButton(R.string.ok, null).show();
+                        builder.setMessage(R.string.cannot_delete_main).setPositiveButton(R.string.ok, null).show();
                         mode.finish();
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setTitle("Delete " + selectedVehicles.size()+ " vehicles?").setPositiveButton(R.string.ok, dialogClickListener)
+                        int count = selectedVehicles.size();
+                        Resources res = context.getResources();
+                        builder.setTitle(res.getQuantityString(R.plurals.vehiclesToDelete,count,count)).setPositiveButton(R.string.ok, dialogClickListener)
                                 .setNegativeButton(R.string.cancel, dialogClickListener).show();
                     }
 
@@ -139,7 +143,7 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
         this.vehiclesViewModel = model;
     }
 
-    void setVehicles(List<Vehicle> vehicles){
+    public void setVehicles(List<Vehicle> vehicles){
         this.mVehicles = new ArrayList<>();
         this.mVehicles = vehicles;
         notifyDataSetChanged();
@@ -196,7 +200,7 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
                     imageView.setVisibility(View.VISIBLE);
                     counter++;
                 }
-                actionMode.setTitle(counter + " selected");
+                actionMode.setTitle(context.getResources().getQuantityString(R.plurals.vehiclesSelected, counter, counter));
             }
         }
 

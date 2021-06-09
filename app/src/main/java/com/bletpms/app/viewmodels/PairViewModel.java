@@ -1,4 +1,4 @@
-package com.bletpms.app.ui.pair;
+package com.bletpms.app.viewmodels;
 
 import android.app.Application;
 
@@ -19,7 +19,7 @@ public class PairViewModel extends AndroidViewModel {
         mMainVehicle = mRepository.getMainVehicle();
     }
 
-    LiveData<Vehicle> getMainVehicle(){return mMainVehicle;}
+    public LiveData<Vehicle> getMainVehicle(){return mMainVehicle;}
 
     public void update(Vehicle vehicle){
         mRepository.update(vehicle);
