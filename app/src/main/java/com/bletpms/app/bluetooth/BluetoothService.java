@@ -43,9 +43,6 @@ public class BluetoothService {
         this.mainActivity = mainActivity;
         this.context = context;
 
-        /*bluetoothAdapter = getBluetoothAdapter();
-        bleScanner = getBleScanner();*/
-
         mBeacons = new ObservableArrayMap<>();
     }
 
@@ -117,6 +114,7 @@ public class BluetoothService {
     public void promptEnableBluetooth() {
         if (!getBluetoothAdapter().isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            //noinspection deprecation
             mainActivity.startActivityForResult(enableBtIntent, ENABLE_BLUETOOTH_REQUEST_CODE);
         }
     }
@@ -126,8 +124,6 @@ public class BluetoothService {
             return;
         }
         mainActivity.runOnUiThread(() -> {
-            /*DialogFragment newFragment = new LocationDialog(LOCATION_PERMISSION_REQUEST_CODE);
-            newFragment.show(mainActivity.getSupportFragmentManager(),"location");*/
 
             AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
             builder.setMessage(R.string.location_message)

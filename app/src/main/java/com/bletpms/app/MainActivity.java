@@ -35,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         final String[] darkModeValues = getResources().getStringArray(R.array.theme_values);
-        // The apps theme is decided depending upon the saved preferences on app startup
         String pref = preferences.getString("theme", getString(R.string.theme_def_value));
-        // Comparing to see which preference is selected and applying those theme settings
         if (pref.equals(darkModeValues[0]))
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         if (pref.equals(darkModeValues[1]))
@@ -53,23 +51,14 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        /*AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_pair, R.id.navigation_vehicles, R.id.navigation_settings)
-                .build();*/
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 
         assert navHostFragment != null;
         NavController navController = navHostFragment.getNavController();
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
-
     }
 
     @Override
@@ -91,29 +80,18 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*@Override
-    protected void onResume() {
-        super.onResume();
-
-        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-            Toast.makeText(this, "No LE Support.", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
-
-        if (bluetoothService.getBluetoothAdapter() == null || !bluetoothService.getBluetoothAdapter().isEnabled()) {
-            bluetoothService.promptEnableBluetooth();
-        } else {
-            if (!bluetoothService.isScanning()) bluetoothService.startBleScan();
-        }
-
-    }
-
     @Override
-    protected void onPause() {
-        super.onPause();
-        bluetoothService.stopBleScan();
-    }*/
+    public void onBackPressed() {
+        BottomNavigationView mBottomNavigationView = findViewById(R.id.nav_view);
+        if (mBottomNavigationView.getSelectedItemId() == R.id.navigation_home)
+        {
+            super.onBackPressed();
+        }
+        else
+        {
+            mBottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

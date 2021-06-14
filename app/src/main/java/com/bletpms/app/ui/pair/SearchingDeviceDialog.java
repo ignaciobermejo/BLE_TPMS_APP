@@ -25,12 +25,8 @@ public class SearchingDeviceDialog {
 
     public Dialog showDialog(){
         dialog  = new Dialog(activity);
-        //dialog.setCanceledOnTouchOutside(false);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         Window window = dialog.getWindow();
-        /*window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);*/
         window.setBackgroundDrawableResource(android.R.color.transparent);
 
         dialog.setContentView(R.layout.dialog_pair_device_auto_search);

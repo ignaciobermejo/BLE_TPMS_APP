@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    
-</ScrollView>-->
 
 <androidx.constraintlayout.widget.ConstraintLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -92,7 +84,9 @@ android:layout_height="match_parent"
     app:layout_constraintTop_toBottomOf="@id/layout3"
     app:layout_constraintBottom_toTopOf="@id/layout7">
 
-    <com.google.android.material.card.MaterialCardView style="@style/VehicleCard.Medium" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card5"
+        style="@style/VehicleCard.Medium"/>
 </RelativeLayout>
 
 <RelativeLayout
@@ -103,7 +97,9 @@ android:layout_height="match_parent"
     app:layout_constraintTop_toBottomOf="@id/layout4"
     app:layout_constraintBottom_toTopOf="@id/layout8">
 
-    <com.google.android.material.card.MaterialCardView style="@style/VehicleCard.Medium" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card6"
+        style="@style/VehicleCard.Medium"/>
 </RelativeLayout>
 
 <RelativeLayout
@@ -113,7 +109,9 @@ android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent">
 
-    <com.google.android.material.card.MaterialCardView style="@style/VehicleCard.Medium" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card7"
+        style="@style/VehicleCard.Medium"/>
 </RelativeLayout>
 
 <RelativeLayout
@@ -123,7 +121,9 @@ android:layout_height="match_parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
 
-    <com.google.android.material.card.MaterialCardView style="@style/VehicleCard.Medium" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card8"
+        style="@style/VehicleCard.Medium"/>
 </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

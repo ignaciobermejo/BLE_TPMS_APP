@@ -43,4 +43,5 @@
     <string name="cannot_delete_main">Main vehicle cannot be deleted</string>
     <string name="toast_vehicle_name">Please, enter a vehicle name</string>
     <string name="toast_vehicle_type">Please, select vehicle type</string>
+    <string name="toast_manual_pair">Device identifier must be 6 characters</string>
 </resources>

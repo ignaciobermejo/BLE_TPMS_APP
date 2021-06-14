@@ -72,14 +72,6 @@ public class NewVehicleAdapter extends RecyclerView.Adapter<NewVehicleAdapter.Ve
                 card.setChecked(checkedPosition == getAdapterPosition());
             }
             image.setImageBitmap(new BitmapFromAssetsProvider(mContext).getBitmap(imageName.substring(0,imageName.length()-4)));
-            /*try {
-                AssetManager assetManager = mContext.getAssets();
-                InputStream is = assetManager.open("vehicles/" + imageName);
-                Bitmap bitmap = BitmapFactory.decodeStream(is);
-                image.setImageBitmap(bitmap);
-
-            }catch (IOException e){
-            }*/
 
             card.setOnClickListener(v -> {
                 card.setChecked(true);

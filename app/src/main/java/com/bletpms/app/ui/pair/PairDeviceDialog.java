@@ -68,19 +68,6 @@ public class PairDeviceDialog extends DialogFragment {
             unbindButton.setVisibility(View.GONE);
         }
 
-        /*saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (deviceID.getText().toString().length() < 6){
-                    Toast.makeText(getContext(),"Device identifier must be 6 characters",Toast.LENGTH_SHORT).show();
-                } else {
-                    mainVehicle.setDevice(selectedWheel,deviceID.getText().toString().trim());
-                    mPairViewModel.update(mainVehicle);
-                    PairDeviceDialog.this.getDialog().cancel();
-                }
-            }
-        });
-*/
         builder.setView(root);
 
         return builder.create();

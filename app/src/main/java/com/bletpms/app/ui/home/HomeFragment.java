@@ -88,9 +88,11 @@ public class HomeFragment extends Fragment{
         bluetoothService = ((MainActivity)requireActivity()).getBluetoothService();
 
         homeViewModel.getMainVehicle().observe(getViewLifecycleOwner(), vehicle -> {
-            if (!layoutLoaded){
-                loadImageAndLayout(vehicle, inflater);
-                attachDevicesToCards(vehicle.getDevices(),vehicleCards);
+            if (vehicle != null){
+                if (!layoutLoaded){
+                    loadImageAndLayout(vehicle, inflater);
+                    attachDevicesToCards(vehicle.getDevices(),vehicleCards);
+                }
             }
         });
 
@@ -136,7 +138,6 @@ public class HomeFragment extends Fragment{
         } else {
             if (!bluetoothService.isScanning()) bluetoothService.startBleScan();
         }
-        //if (!bluetoothService.isScanning()) bluetoothService.startBleScan();
 
         if (layoutLoaded) updateCardsData();
     }
@@ -178,7 +179,7 @@ public class HomeFragment extends Fragment{
         vehicleImage.setImageBitmap(new BitmapFromAssetsProvider(getContext()).getBitmap(vehicle.getType()));
 
         ArrayList<MaterialCardView> cards = new ArrayList<>();
-        for (int i = 0; i < vehicle.getDevices().length; i++ ){
+        for (int i = 0; i < vehicle.getWheels(); i++ ){
             String cardIDString = "card"+(i+1);
             int cardID = getResources().getIdentifier(cardIDString, "id","com.bletpms.app");
             cards.add(root.findViewById(cardID));
@@ -194,27 +195,4 @@ public class HomeFragment extends Fragment{
 
         layoutLoaded = true;
      }
-
-    /*    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key != null && sharedPreferences != null) {
-            if (!key.matches("theme")) {
-                Log.i(TAG, "Preferences changed!");
-                String temperatureUnitPref = preferences.getString("temperature_unit", getString(R.string.temperature_unit_def_value));
-                String pressureUnitPref = preferences.getString("pressure_unit", getString(R.string.pressure_unit_def_value));;
-                float temperatureUpperLimitPref = preferences.getInt("temperature_upper_limit", 65);
-                float pressureLowerLimitPref = preferences.getFloat("pressure_lower_value", (float) PressureLimitsActivity.defaultLowerBar);
-                float pressureUpperLimitPref = preferences.getFloat("pressure_upper_value", (float) PressureLimitsActivity.defaultUpperBar);
-                for (VehicleCard card: vehicleCards) {
-                    card.updatePreferences(temperatureUnitPref, pressureUnitPref, temperatureUpperLimitPref, pressureLowerLimitPref, pressureUpperLimitPref);
-                    if (key.matches("temperature_unit|pressure_unit"))
-                        card.updateUnits();
-                    if (card.isBinded()){
-                        if (card.getLastBeacon() != null)
-                            card.updateData(card.getLastBeacon());
-                    }
-                }
-            }
-        }
-    }*/
 }

@@ -7,6 +7,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses(
         {BluetoothServiceTest.class,
                 DataParserTest.class,
+                UnitConverterTest.class,
                 VehicleTypesTest.class}
 )
 public class aUnitTests_runAll {

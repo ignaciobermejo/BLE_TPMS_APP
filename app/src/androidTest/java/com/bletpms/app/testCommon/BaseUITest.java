@@ -1,8 +1,5 @@
 package com.bletpms.app.testCommon;
 
-import android.content.Context;
-
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.rule.ActivityTestRule;
 
 import com.bletpms.app.MainActivity;

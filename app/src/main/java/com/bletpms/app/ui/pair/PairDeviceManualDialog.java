@@ -50,7 +50,7 @@ public class PairDeviceManualDialog extends DialogFragment {
 
         saveButton.setOnClickListener(v -> {
             if (deviceID.getText().toString().length() < 6){
-                Toast.makeText(getContext(),"Device identifier must be 6 characters",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.toast_manual_pair,Toast.LENGTH_SHORT).show();
             } else {
                 mainVehicle.setDevice(selectedWheel,deviceID.getText().toString().trim());
                 mPairViewModel.update(mainVehicle);

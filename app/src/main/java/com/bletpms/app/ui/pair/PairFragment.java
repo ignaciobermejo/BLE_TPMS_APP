@@ -53,12 +53,9 @@ public class PairFragment extends Fragment {
                 TextView textView = card.findViewById(R.id.pairTextView);
                 String deviceID = vehicle.getDevice(wheelNumber);
                 if (deviceID != null){
-                    //Log.i("VEHICLE DEVICE", vehicle.getDevice(wheelNumber));
                     textView.setText(deviceID);
-                    //card.setBackgroundColor(ColorUtils.setAlphaComponent(getResources().getColor(R.color.amber_600),150));
                 }else {
                     textView.setText(R.string.pair_bind);
-                    //card.setBackgroundColor(getResources().getColor(R.color.white));
                 }
             }
         });
@@ -78,7 +75,7 @@ public class PairFragment extends Fragment {
         vehicleImage.setImageBitmap(new BitmapFromAssetsProvider(getContext()).getBitmap(vehicle.getType()));
 
         cards = new ArrayList<>();
-        for (int i = 0; i < vehicle.getDevices().length; i++ ){
+        for (int i = 0; i < vehicle.getWheels(); i++ ){
             String cardIDString = "card"+(i+1);
             int cardID = getResources().getIdentifier(cardIDString, "id","com.bletpms.app");
             cards.add(root.findViewById(cardID));

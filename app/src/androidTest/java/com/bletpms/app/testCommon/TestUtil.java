@@ -122,10 +122,10 @@ public class TestUtil {
         return new DrawableMatcher(resourceId);
     }
 
-    public static void assertToast(String message){
+    /*public static void assertToast(String message){
         onView(withText(message)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));
-    }
+    }*/
     public static void assertToast(@StringRes int viewId){
         onView(withText(viewId)).inRoot(new ToastMatcher())
                 .check(matches(isDisplayed()));

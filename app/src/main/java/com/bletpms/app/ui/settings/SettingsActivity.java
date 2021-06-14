@@ -20,6 +20,7 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.SeekBarPreference;
 
 import com.bletpms.app.R;
+import com.bletpms.app.utils.UnitConverter;
 
 import java.util.Locale;
 
@@ -121,8 +122,8 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
                     final String[] pressureInitialValues = getResources().getStringArray(R.array.initial_pressure_values_bar);
                     float currentLowerValue = pref.getFloat("pressure_lower_value", Float.parseFloat(pressureInitialValues[0]));
                     float currentUpperValue = pref.getFloat("pressure_upper_value", Float.parseFloat(pressureInitialValues[1]));
-                    float newLowerPressureValue = doPressureConversion(pressureLastUnit, String.valueOf(newValue), currentLowerValue);
-                    float newUpperPressureValue = doPressureConversion(pressureLastUnit, String.valueOf(newValue), currentUpperValue);
+                    float newLowerPressureValue = UnitConverter.doPressureConversion(pressureLastUnit, String.valueOf(newValue), currentLowerValue);
+                    float newUpperPressureValue = UnitConverter.doPressureConversion(pressureLastUnit, String.valueOf(newValue), currentUpperValue);
                     Log.i(TAG, "Conversion: " + pressureLastUnit + " ---> " + newValue + "____ [" + currentLowerValue + ", "+currentUpperValue+"] ---> ["+ newLowerPressureValue + ", " + newUpperPressureValue + "]");
                     pref.edit().putFloat("pressure_lower_value", newLowerPressureValue).apply();
                     pref.edit().putFloat("pressure_upper_value", newUpperPressureValue).apply();
@@ -130,17 +131,6 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
 
                 return true;
             });
-
-            /*Preference pressureLimitsPreference = findPreference("pressure_limits");
-            pressureLimitsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent();
-                    intent.setClassName(getContext(), "com.bletpms.app.ui.settings.PressureLimitsActivity");
-                    startActivity(intent);
-                    return false;
-                }
-            });*/
 
             Preference resetPreference = findPreference("reset_settings");
             assert resetPreference != null;
@@ -163,8 +153,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
             Preference aboutPreference = findPreference("about");
             assert aboutPreference != null;
             aboutPreference.setOnPreferenceClickListener(preference -> {
-                /*DialogFragment dialog = new AboutDialog();
-                dialog.show(getParentFragmentManager(),"About dialog");*/
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
 
                 LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -196,12 +185,12 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
                 case "celsius":
                     min = minC;
                     max = maxC;
-                    value = fahrenheitToCelsius(temperatureSeekBarPreference.getValue());
+                    value = UnitConverter.fahrenheitToCelsius(temperatureSeekBarPreference.getValue());
                     break;
                 case "fahrenheit":
                     min = minF;
                     max = maxF;
-                    value = celsiusToFahrenheit(temperatureSeekBarPreference.getValue());
+                    value = UnitConverter.celsiusToFahrenheit(temperatureSeekBarPreference.getValue());
                     break;
                 default:
                     min = minC;

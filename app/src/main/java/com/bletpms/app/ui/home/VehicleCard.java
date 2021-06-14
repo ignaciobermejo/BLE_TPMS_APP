@@ -70,7 +70,6 @@ public class VehicleCard {
 
         progressIndicator = baseCard.findViewById(R.id.progressIndicator);
         dataViewsGroups = baseCard.findViewById(R.id.dataViewsGroup);
-        //progressIndicator.show();
 
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -143,18 +142,13 @@ public class VehicleCard {
         }
 
         pressureTextView.setText(String.format(Locale.getDefault(),"%.1f",pressureValue));
-        //pressureUnitTextView.setText(pressureUnitPref);
 
         final  String[] temperatureUnitValues = context.getResources().getStringArray(R.array.temperature_values);
-        //final  String[] temperatureUnitEntries = context.getResources().getStringArray(R.array.temperature_entries);
         float tempValue = 0;
-        //String tempUnit = "";
         if (temperatureUnitPref.matches(temperatureUnitValues[0])) {
             tempValue = (float) deviceBeacon.getTemperatureCelsius();
-            //tempUnit = temperatureUnitEntries[0];
         } else if (temperatureUnitPref.matches(temperatureUnitValues[1])){
             tempValue = (float) deviceBeacon.getTemperatureFahrenheit();
-            //tempUnit = temperatureUnitEntries[1];
         }
 
         if (tempValue > temperatureUpperLimitPref) {
@@ -166,11 +160,6 @@ public class VehicleCard {
         }
 
         temperatureTextView.setText(String.format(Locale.getDefault(),"%.0f", tempValue));
-        //temperatureUnitTextView.setText(tempUnit);
-
-        /*pressureTextView.setText(String.format(Locale.getDefault(),"%.1f",deviceBeacon.getPressureBAR()));
-        temperatureTextView.setText(String.format(Locale.getDefault(),"%.0f",deviceBeacon.getTemperatureCelsius()));
-        pressureUnitTextView.setText(pressureUnitPref);*/
     }
 
     private int getRedColor(){

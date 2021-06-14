@@ -94,13 +94,14 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
                         builder.setTitle(res.getQuantityString(R.plurals.vehiclesToDelete,count,count)).setPositiveButton(R.string.ok, dialogClickListener)
                                 .setNegativeButton(R.string.cancel, dialogClickListener).show();
                     }
-
                     return true;
+
                 case R.id.edit_item_contextual_menu:
                     DialogFragment editFragment = new EditVehicleDialog(selectedVehicles.get(0), vehiclesViewModel);
                     editFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "Edit vehicle");
                     mode.finish(); // Action picked, so close the CAB
                     return true;
+
                 case R.id.main_item_contextual_menu:
                     Vehicle selected = selectedVehicles.get(0);
                     if (!selected.getMain()){
@@ -215,13 +216,9 @@ public class VehiclesListAdapter extends RecyclerView.Adapter<VehiclesListAdapte
                 }
             });
             if (vehicle.getMain()){
-                //mainImageView.setImageResource(R.drawable.ic_baseline_star_24);
                 mainImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_star_24));
-                //mainImageView.setColorFilter(ContextCompat.getColor(context,R.color.amber_600),PorterDuff.Mode.SRC_IN);
             }else {
-                //mainImageView.setImageResource(R.drawable.ic_baseline_star_outline_24);
                 mainImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_star_outline_24));
-                //mainImageView.clearColorFilter();
             }
 
             if (selectedVehicles.contains(vehicle)){

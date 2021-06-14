@@ -22,9 +22,5 @@
         android:label="@string/title_vehicles"
         tools:layout="@layout/fragment_vehicles" />
 
- <!--   <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.bletpms.app.ui.settings.SettingsFragment"
-        android:label="@string/title_settings"/>-->
 
 </navigation>

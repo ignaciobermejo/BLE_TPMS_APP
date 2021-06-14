@@ -2,20 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.BLETPMS" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
- <!--       <item name="colorPrimary">@color/amber_600</item>
-        <item name="colorPrimaryVariant">@color/dark_amber_600</item>
-        <item name="colorOnPrimary">@color/black</item>-->
-
         <item name="colorPrimary">@color/amber_600</item>
         <item name="colorPrimaryDark">@color/amber_600</item>
         <item name="colorAccent">@color/amber_600</item>
         <item name="colorPrimaryVariant">@color/dark_amber_600</item>
         <item name="colorOnPrimary">@color/black</item>
-        <!--<item name="colorOnSurface">@color/amber_600</item>-->
-<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;
-        <item name="colorSecondary">@color/grey_800</item>
-        <item name="colorSecondaryVariant">@color/dark_grey_800</item>
-        <item name="colorOnSecondary">@color/white</item>-->
+        <!-- Secondary brand color. -->
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="m">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

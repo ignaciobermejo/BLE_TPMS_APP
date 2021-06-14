@@ -1,5 +1,6 @@
 package com.bletpms.app.utils;
 
+
 // TPMS BLE "manufacturer data" format
 // "000180eaca108a78e36d0000e60a00005b00"
 //  0001                                    Manufacturer (0001: TomTom)
@@ -51,7 +52,7 @@ public class DataParser {
     }
 
     public static double getPressurePSI(String data){
-        return getPressureKPA(data)/6.895;
+        return UnitConverter.doPressureConversion("KPA", "PSI", (float) getPressureKPA(data));
     }
 
     public static double getTemperatureCelsius(String data){
@@ -59,7 +60,7 @@ public class DataParser {
     }
 
     public static double getTemperatureFahrenheit(String data){
-        return ((getTemperatureCelsius(data))*(9.0/5.0))+32;
+        return UnitConverter.celsiusToFahrenheit((int)getTemperatureCelsius(data));
     }
 
     public static int getSensorNumber(String data){

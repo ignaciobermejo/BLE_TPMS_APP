@@ -88,4 +88,5 @@
     <string name="cannot_delete_main">El vehículo principal no puede ser eliminado</string>
     <string name="toast_vehicle_name">Por favor, ingrese el nombre del vehículo</string>
     <string name="toast_vehicle_type">Por favor, seleccione el tipo de vehículo</string>
+    <string name="toast_manual_pair">El identificador tiene que ser de 6 caracteres</string>
 </resources>

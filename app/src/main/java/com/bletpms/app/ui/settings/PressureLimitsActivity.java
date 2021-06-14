@@ -71,14 +71,7 @@ public class PressureLimitsActivity extends AppCompatActivity {
         upperTextView = findViewById(R.id.pressureUpperLimit);
 
         slider = findViewById(R.id.pressureSlider);
-        /*slider.setLabelFormatter(new LabelFormatter() {
-            @NonNull
-            @Override
-            public String getFormattedValue(float value) {
-                return String.format(Locale.getDefault(),"%.1f",value);
-            }
-        });*/
-        //slider.setMinSeparation(20);
+
         setPressureValues(currentPressureUnit);
         setTextViews();
 
