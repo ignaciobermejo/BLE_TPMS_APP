@@ -1,7 +1,6 @@
 package com.bletpms.app.ui.pair;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,6 @@ public class PairFragment extends Fragment {
         bluetoothService = ((MainActivity)requireActivity()).getBluetoothService();
 
         pairViewModel.getMainVehicle().observe(getViewLifecycleOwner(), vehicle -> {
-            Log.i("MAIN VEHICLE","modified!");
             if (!layoutLoaded) loadImageAndLayout(vehicle, inflater);
 
             for (MaterialCardView card:cards) {

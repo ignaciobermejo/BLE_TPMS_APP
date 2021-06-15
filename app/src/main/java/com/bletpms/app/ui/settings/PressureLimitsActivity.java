@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.bletpms.app.R;
 import com.google.android.material.slider.RangeSlider;
 
+import java.util.Locale;
+
 public class PressureLimitsActivity extends AppCompatActivity {
 
     private static final double maxBarUpper = 6.4D;
@@ -79,8 +81,8 @@ public class PressureLimitsActivity extends AppCompatActivity {
     }
 
     private void setTextViews() {
-        lowerTextView.setText(String.valueOf(slider.getValues().get(1)));
-        upperTextView.setText(String.valueOf(slider.getValues().get(0)));
+        lowerTextView.setText(String.format(Locale.getDefault(), "%.1f", slider.getValues().get(1)));
+        upperTextView.setText(String.format(Locale.getDefault(), "%.1f", slider.getValues().get(0)));
     }
 
     private void setPressureValues(String currentPressureUnit) {

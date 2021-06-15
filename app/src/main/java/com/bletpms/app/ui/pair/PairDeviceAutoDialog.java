@@ -47,24 +47,8 @@ public class PairDeviceAutoDialog extends DialogFragment {
 
     private static final int SEARCHING_TIME_MS = 30000;
 
-    private final ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>
-            autoPairBeaconObserver = new ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>() {
-        @Override
-        public void onMapChanged(ObservableMap<String, DeviceBeacon> sender, String key) {
-            if (!bindedDevices.contains(key)) {
-
-                Log.i(TAG, "Ending search... NEW Device found: " + key);
-                if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
-                mainVehicle.setDevice(selectedWheel, key);
-                mPairViewModel.update(mainVehicle);
-                myHandler.removeCallbacksAndMessages(null);
-                searchingDeviceDialog.cancelDialog();
-                card.findViewById(R.id.pairTextView).setVisibility(View.VISIBLE);
-                card.findViewById(R.id.progressIndicator).setVisibility(View.GONE);
-                bluetoothService.getBeacons().removeOnMapChangedCallback(this);
-            }
-        }
-    };
+    private ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>
+            autoPairBeaconObserver;
 
     public PairDeviceAutoDialog(Vehicle vehicle, PairViewModel model, int selectedWheel, PairDeviceDialog pairDeviceDialog, MaterialCardView card, BluetoothService bluetoothService) {
         this.mainVehicle = vehicle;
@@ -121,7 +105,7 @@ public class PairDeviceAutoDialog extends DialogFragment {
                 PairDeviceAutoDialog.this.requireDialog().show();
             }, SEARCHING_TIME_MS);
 
-            findNewDevices();
+            findNewDevices(PairDeviceAutoDialog.this.requireDialog());
         });
 
         cancelButton.setOnClickListener(v -> PairDeviceAutoDialog.this.requireDialog().cancel());
@@ -131,7 +115,7 @@ public class PairDeviceAutoDialog extends DialogFragment {
         return builder.create();
     }
 
-    private void findNewDevices(){
+    private void findNewDevices(Dialog dialog){
         if (bluetoothService.getBluetoothAdapter() == null || !bluetoothService.getBluetoothAdapter().isEnabled()) {
             bluetoothService.promptEnableBluetooth();
         } else {
@@ -140,6 +124,23 @@ public class PairDeviceAutoDialog extends DialogFragment {
         Log.i(TAG, "Starting search for devices...");
 
         bindedDevices = getBindedDevices();
+
+        autoPairBeaconObserver = new ObservableMap.OnMapChangedCallback<ObservableMap<String, DeviceBeacon>, String, DeviceBeacon>() {
+            @Override
+            public void onMapChanged(ObservableMap<String, DeviceBeacon> sender, String key) {
+                if (!bindedDevices.contains(key)) {
+
+                    Log.i(TAG, "Ending search... NEW Device found: " + key);
+                    if (bluetoothService.isScanning()) bluetoothService.stopBleScan();
+                    mainVehicle.setDevice(selectedWheel, key);
+                    mPairViewModel.update(mainVehicle);
+                    myHandler.removeCallbacksAndMessages(null);
+                    dialog.cancel();
+                    searchingDeviceDialog.cancelDialog();
+                    card.findViewById(R.id.pairTextView).setVisibility(View.VISIBLE);
+                    card.findViewById(R.id.progressIndicator).setVisibility(View.GONE);
+                    bluetoothService.getBeacons().removeOnMapChangedCallback(this);
+                }}};
 
         bluetoothService.getBeacons().addOnMapChangedCallback(autoPairBeaconObserver);
     }

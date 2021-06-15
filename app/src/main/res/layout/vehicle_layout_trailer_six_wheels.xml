@@ -81,9 +81,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card5"
-            style="@style/VehicleCard.Medium"/>
+        <com.google.android.material.card.MaterialCardView style="@style/VehicleCard.Medium"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -93,9 +91,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card6"
-            style="@style/VehicleCard.Medium"/>
+        <com.google.android.material.card.MaterialCardView style="@style/VehicleCard.Medium"/>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

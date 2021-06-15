@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.ObservableMap;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -110,6 +109,8 @@ public class HomeFragment extends Fragment{
         super.onStart();
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
         requireActivity().registerReceiver(mReceiver, filter);
+        bluetoothService.getBeacons().addOnMapChangedCallback(beaconsObserver);
+        Log.i(TAG, "Beacons observer Added!!!!!");
     }
 
     @Override
@@ -118,6 +119,7 @@ public class HomeFragment extends Fragment{
         super.onStop();
         requireActivity().unregisterReceiver(mReceiver);
         bluetoothService.getBeacons().removeOnMapChangedCallback(beaconsObserver);
+        Log.i(TAG, "Beacons observer removed!!!!!");
     }
 
     @Override
@@ -141,13 +143,6 @@ public class HomeFragment extends Fragment{
 
         if (layoutLoaded) updateCardsData();
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        bluetoothService.getBeacons().addOnMapChangedCallback(beaconsObserver);
-    }
-
 
     private void updateCardsData(){
         Log.i(TAG, "Cards data updated");

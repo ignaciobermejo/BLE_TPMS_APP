@@ -22,8 +22,6 @@ import androidx.preference.SeekBarPreference;
 import com.bletpms.app.R;
 import com.bletpms.app.utils.UnitConverter;
 
-import java.util.Locale;
-
 public class SettingsActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener,
         Preference.SummaryProvider<androidx.preference.ListPreference> {
 
@@ -206,40 +204,6 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
 
             if (!onCreatePreference)
                 temperatureSeekBarPreference.setValue(value);
-        }
-
-        private int fahrenheitToCelsius(int value){
-            return ( 5 *(value - 32)) / 9;
-        }
-
-        private int celsiusToFahrenheit(int value){
-            return ( 9 * value + (32 * 5)) / 5;
-        }
-
-        private float doPressureConversion(String oldUnit, String newUnit, float value) {
-            float newValue = 0;
-            if (oldUnit.matches("BAR")){
-                if (newUnit.matches("KPA")){
-                    newValue = value * 100;
-                } else {
-                    newValue = value * 14.504F;
-                }
-            }
-            if (oldUnit.matches("KPA")){
-                if (newUnit.matches("BAR")){
-                    newValue = value / 100;
-                } else {
-                    newValue = value / 6.895F;
-                }
-            }
-            if (oldUnit.matches("PSI")){
-                if (newUnit.matches("BAR")){
-                    newValue = value / 14.504F;
-                } else {
-                    newValue = value * 6.895F;
-                }
-            }
-            return Float.parseFloat(String.format(Locale.getDefault(), "%.1f", newValue).replace(",", "."));
         }
     }
 
