@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.Locale;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
@@ -85,24 +87,24 @@ public class SettingsActivityTest extends BaseUITest {
 
         clickOn(R.string.pressure_limits);
 
-        assertDisplayed("2.0");
-        assertDisplayed("3.0");
+        assertDisplayed(String.format(Locale.getDefault(), "%.1f", 2F));
+        assertDisplayed(String.format(Locale.getDefault(), "%.1f", 3F));
 
         clickBack();
         clickOn("BAR");
         clickOn("KPA");
         clickOn(R.string.pressure_limits);
 
-        assertDisplayed("200.0");
-        assertDisplayed("300.0");
+        assertDisplayed(String.format(Locale.getDefault(), "%.1f", 200F));
+        assertDisplayed(String.format(Locale.getDefault(), "%.1f", 300F));
 
         clickBack();
         clickOn("KPA");
         clickOn("PSI");
         clickOn(R.string.pressure_limits);
 
-        assertDisplayed("29.0");
-        assertDisplayed("43.5");
+        assertDisplayed(String.format(Locale.getDefault(), "%.1f", 29F));
+        assertDisplayed(String.format(Locale.getDefault(), "%.1f", 43.5F));
 
         clickBack();
         clickBack();
@@ -140,8 +142,8 @@ public class SettingsActivityTest extends BaseUITest {
 
         clickOn(R.string.pressure_limits);
 
-        assertDisplayed("200.0");
-        assertDisplayed("300.0");
+        assertDisplayed(String.format(Locale.getDefault(), "%.1f", 200F));
+        assertDisplayed(String.format(Locale.getDefault(), "%.1f", 300F));
 
         clickBack();
 
@@ -154,8 +156,8 @@ public class SettingsActivityTest extends BaseUITest {
 
         clickOn(R.string.pressure_limits);
 
-        assertDisplayed("2.0");
-        assertDisplayed("3.0");
+        assertDisplayed(String.format(Locale.getDefault(), "%.1f", 2F));
+        assertDisplayed(String.format(Locale.getDefault(), "%.1f", 3F));
 
 
     }
